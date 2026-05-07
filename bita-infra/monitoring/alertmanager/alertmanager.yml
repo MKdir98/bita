@@ -1,0 +1,82 @@
+# Alertmanager Configuration for BITA
+
+global:
+  resolve_timeout: 5m
+  # SMTP configuration (if email alerts needed)
+  # smtp_smarthost: 'smtp.example.com:587'
+  # smtp_from: 'alertmanager@bita.ir'
+  # smtp_auth_username: 'alertmanager'
+  # smtp_auth_password: 'password'
+
+# Route configuration
+route:
+  # Default receiver
+  receiver: 'default-receiver'
+  
+  # Group alerts by these labels
+  group_by: ['alertname', 'severity', 'team']
+  
+  # Wait time before sending grouped alerts
+  group_wait: 30s
+  
+  # Wait time between sending alerts for same group
+  group_interval: 5m
+  
+  # Wait time before resending an alert
+  repeat_interval: 4h
+
+  # Routes for specific alerts
+  routes:
+    # Critical alerts go to ops team
+    - match:
+        severity: critical
+      receiver: 'ops-critical'
+      continue: true
+    
+    # Backend team alerts
+    - match:
+        team: backend
+      receiver: 'backend-team'
+    
+    # Platform team alerts
+    - match:
+        team: platform
+      receiver: 'platform-team'
+
+# Inhibition rules
+inhibit_rules:
+  # If critical alert fires, suppress warnings
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'service_id']
+
+# Receivers
+receivers:
+  # Default receiver (log only)
+  - name: 'default-receiver'
+  
+  # Ops critical (webhook + Slack)
+  - name: 'ops-critical'
+    webhook_configs:
+      - url: 'http://alerting-webhook:9090/alerts'
+        send_resolved: true
+    # slack_configs:
+    #   - api_url: 'https://hooks.slack.com/services/xxx/yyy/zzz'
+    #     channel: '#bita-alerts'
+    #     send_resolved: true
+    #     title: '{{ .Status | toUpper }}: {{ .CommonAnnotations.summary }}'
+    #     text: '{{ .CommonAnnotations.description }}'
+
+  # Backend team
+  - name: 'backend-team'
+    webhook_configs:
+      - url: 'http://alerting-webhook:9090/alerts/backend'
+        send_resolved: true
+
+  # Platform team
+  - name: 'platform-team'
+    webhook_configs:
+      - url: 'http://alerting-webhook:9090/alerts/platform'
+        send_resolved: true

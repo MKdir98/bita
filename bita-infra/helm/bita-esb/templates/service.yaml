@@ -1,0 +1,17 @@
+{{- if .Values.serviceId }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "bita-esb.fullname" . }}
+  labels:
+    {{- include "bita-esb.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.k8sService.type }}
+  ports:
+    - port: {{ .Values.k8sService.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "bita-esb.selectorLabels" . | nindent 4 }}
+{{- end }}

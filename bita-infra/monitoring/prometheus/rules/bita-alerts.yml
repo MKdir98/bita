@@ -1,0 +1,133 @@
+# BITA Alert Rules
+
+groups:
+  - name: bita-backend-alerts
+    rules:
+      # High error rate
+      - alert: BitaBackendHighErrorRate
+        expr: |
+          sum(rate(http_server_requests_seconds_count{job="bita-esm-backend",status=~"5.."}[5m]))
+          / sum(rate(http_server_requests_seconds_count{job="bita-esm-backend"}[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          team: backend
+        annotations:
+          summary: "High error rate in BITA Backend"
+          description: "Error rate is above 5% for the last 5 minutes"
+
+      # High latency
+      - alert: BitaBackendHighLatency
+        expr: |
+          histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{job="bita-esm-backend"}[5m])) by (le)) > 2
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "High latency in BITA Backend"
+          description: "95th percentile latency is above 2 seconds"
+
+      # Pod not ready
+      - alert: BitaBackendPodNotReady
+        expr: |
+          kube_pod_status_ready{namespace="bita",pod=~"bita-esm-backend.*",condition="true"} == 0
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "BITA Backend pod not ready"
+          description: "Pod {{ $labels.pod }} has been not ready for 5 minutes"
+
+      # High memory usage
+      - alert: BitaBackendHighMemory
+        expr: |
+          container_memory_usage_bytes{namespace="bita",container="backend"}
+          / container_spec_memory_limit_bytes{namespace="bita",container="backend"} > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "High memory usage in BITA Backend"
+          description: "Memory usage is above 90%"
+
+  - name: bita-esb-alerts
+    rules:
+      # ESB Core not ready
+      - alert: BitaEsbCoreNotReady
+        expr: |
+          sum by (service_id) (
+            kube_pod_status_ready{namespace="bita",pod=~"bita-esb-.*",condition="true"}
+          ) == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "ESB Core service not ready"
+          description: "Service ID {{ $labels.service_id }} has no ready pods"
+
+      # High request rate per service
+      - alert: BitaEsbHighRequestRate
+        expr: |
+          sum by (service_id) (rate(vertx_http_server_requests_total{job="bita-esb-core"}[5m])) > 1000
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High request rate for ESB service"
+          description: "Service {{ $labels.service_id }} is receiving more than 1000 req/s"
+
+      # Rate limit exceeded frequently
+      - alert: BitaEsbRateLimitExceeded
+        expr: |
+          sum by (service_id) (rate(esb_rate_limit_exceeded_total{job="bita-esb-core"}[5m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Rate limit frequently exceeded"
+          description: "Service {{ $labels.service_id }} has frequent rate limit violations"
+
+  - name: bita-infrastructure-alerts
+    rules:
+      # PostgreSQL connection issues
+      - alert: BitaDatabaseConnectionFailure
+        expr: |
+          hikaricp_connections_active{application="bita-esm-backend"} == 0
+          and hikaricp_connections_pending{application="bita-esm-backend"} > 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Database connection failure"
+          description: "Unable to establish database connections"
+
+      # Redis connection issues
+      - alert: BitaRedisConnectionFailure
+        expr: |
+          redis_connected_clients < 1
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Redis connection failure"
+          description: "No active Redis connections"
+
+      # Kafka consumer lag
+      - alert: BitaKafkaConsumerLag
+        expr: |
+          kafka_consumer_lag_max > 10000
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High Kafka consumer lag"
+          description: "Consumer lag is above 10000 messages"

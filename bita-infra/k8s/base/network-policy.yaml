@@ -1,0 +1,150 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: bita-default-deny
+  namespace: bita
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: bita-allow-ingress
+  namespace: bita
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: bita-platform
+  policyTypes:
+    - Ingress
+  ingress:
+    # Allow from ingress controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+    # Allow from within bita namespace
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: bita
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: bita-esm-backend-egress
+  namespace: bita
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: bita-esm-backend
+  policyTypes:
+    - Egress
+  egress:
+    # Allow DNS
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: UDP
+          port: 53
+    # Allow PostgreSQL
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: bita
+      ports:
+        - protocol: TCP
+          port: 5432
+    # Allow Redis
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: bita
+      ports:
+        - protocol: TCP
+          port: 6379
+    # Allow Kafka
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: bita
+      ports:
+        - protocol: TCP
+          port: 9092
+    # Allow Elasticsearch
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: bita
+      ports:
+        - protocol: TCP
+          port: 9200
+    # Allow Kubernetes API
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+      ports:
+        - protocol: TCP
+          port: 443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: bita-esb-core-egress
+  namespace: bita
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: bita-esb-core
+  policyTypes:
+    - Egress
+  egress:
+    # Allow DNS
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: UDP
+          port: 53
+    # Allow ESM Backend
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: bita-esm-backend
+      ports:
+        - protocol: TCP
+          port: 8080
+    # Allow Redis
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: bita
+      ports:
+        - protocol: TCP
+          port: 6379
+    # Allow Kafka
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: bita
+      ports:
+        - protocol: TCP
+          port: 9092
+    # Allow Elasticsearch
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: bita
+      ports:
+        - protocol: TCP
+          port: 9200
+    # Allow external service calls (for backend services)
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16

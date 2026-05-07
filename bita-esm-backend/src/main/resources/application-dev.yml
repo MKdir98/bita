@@ -1,0 +1,44 @@
+# Development Environment Configuration
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+
+server:
+  port: 8081
+
+app:
+  llm:
+    boofai:
+      enabled: ${BOOFAI_ENABLED:true}
+    gradient:
+      enabled: ${GRADIENT_ENABLED:false}
+    yqcloud:
+      enabled: ${YQCLOUD_ENABLED:false}
+    startnest:
+      enabled: ${STARTNEST_ENABLED:false}
+    cohere:
+      enabled: ${COHERE_ENABLED:false}
+    meta:
+      enabled: ${META_ENABLED:false}
+    deepseek:
+      enabled: ${DEEPSEEK_ENABLED:false}
+
+logging:
+  level:
+    ir.bita: DEBUG
+    org.hibernate.SQL: INFO

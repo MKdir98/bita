@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: bita
+
+resources:
+  - ../../base
+
+commonLabels:
+  environment: production
+
+replicas:
+  - name: bita-esm-backend
+    count: 3
+  - name: bita-esm-frontend
+    count: 2
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "1Gi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "2Gi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "500m"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "2000m"
+    target:
+      kind: Deployment
+      name: bita-esm-backend
+
+configMapGenerator:
+  - name: bita-config
+    behavior: merge
+    literals:
+      - SPRING_PROFILES_ACTIVE=production
+      - LOGGING_LEVEL_ROOT=WARN
+      - LOGGING_LEVEL_IR_BITA=INFO

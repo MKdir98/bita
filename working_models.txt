@@ -1,0 +1,10 @@
+Working G4F Models - 2026-02-05 19:55:06.232913
+==================================================
+
+command-a
+command-r
+command-r7b
+deepseek-r1
+gpt-oss-120b
+llama-3.2-1b
+r1-1776

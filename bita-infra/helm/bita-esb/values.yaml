@@ -1,0 +1,88 @@
+# Default values for bita-esb
+# This chart creates ESB Core deployments dynamically per service
+
+# Service ID - REQUIRED
+serviceId: ""
+
+# Service configuration
+service:
+  name: ""
+  fullPath: ""
+  
+# Replica configuration
+replicaCount: 1
+minReplicas: 1
+maxReplicas: 5
+targetCpuPercent: 70
+
+# Image configuration
+image:
+  repository: bita-esb-core
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Service
+k8sService:
+  type: ClusterIP
+  port: 8080
+
+# Resources
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+# ESM Backend connection
+esm:
+  baseUrl: "http://bita-esm-backend:8080"
+  apiKey: ""
+  existingSecret: bita-secrets
+  apiKeyKey: INTERNAL_API_KEY
+
+# Kafka
+kafka:
+  bootstrapServers: kafka:9092
+
+# Redis
+redis:
+  host: redis
+  port: 6379
+
+# Elasticsearch
+elasticsearch:
+  url: http://elasticsearch:9200
+
+# Autoscaling
+autoscaling:
+  enabled: true
+
+# Probes
+livenessProbe:
+  path: /health/live
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  path: /health/ready
+  initialDelaySeconds: 15
+  periodSeconds: 5
+  failureThreshold: 3
+
+# Pod annotations
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8080"
+  prometheus.io/path: "/metrics"
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
+affinity: {}

@@ -1,0 +1,14 @@
+# Grafana Dashboard Provisioning
+
+apiVersion: 1
+
+providers:
+  - name: 'BITA Dashboards'
+    orgId: 1
+    folder: 'BITA'
+    type: file
+    disableDeletion: false
+    editable: true
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/dashboards

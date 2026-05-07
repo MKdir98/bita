@@ -1,0 +1,296 @@
+# BITA GitLab CI/CD Pipeline
+
+stages:
+  - lint
+  - test
+  - build
+  - scan
+  - deploy
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  DOCKER_REGISTRY: registry.bita.ir
+  DOCKER_TLS_CERTDIR: ""
+
+# Cache Maven dependencies
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .m2/repository
+    - bita-esm-frontend/node_modules
+
+# =============================================================================
+# LINT Stage
+# =============================================================================
+
+lint:backend:
+  stage: lint
+  image: maven:3.9-eclipse-temurin-17
+  script:
+    - mvn checkstyle:check -pl bita-esm-backend -am
+  rules:
+    - changes:
+        - "bita-esm-backend/**/*"
+        - "bita-common/**/*"
+
+lint:frontend:
+  stage: lint
+  image: node:20-alpine
+  before_script:
+    - cd bita-esm-frontend
+    - npm ci
+  script:
+    - npm run lint
+  rules:
+    - changes:
+        - "bita-esm-frontend/**/*"
+
+# =============================================================================
+# TEST Stage
+# =============================================================================
+
+test:backend:
+  stage: test
+  image: maven:3.9-eclipse-temurin-17
+  services:
+    - postgres:15-alpine
+    - redis:7-alpine
+  variables:
+    POSTGRES_DB: bita_test
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test
+    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bita_test
+    SPRING_DATASOURCE_USERNAME: test
+    SPRING_DATASOURCE_PASSWORD: test
+    SPRING_REDIS_HOST: redis
+  script:
+    - mvn test -pl bita-esm-backend -am
+  coverage: '/Total.*?([0-9]{1,3})%/'
+  artifacts:
+    reports:
+      junit: bita-esm-backend/target/surefire-reports/TEST-*.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: bita-esm-backend/target/site/jacoco/jacoco.xml
+  rules:
+    - changes:
+        - "bita-esm-backend/**/*"
+        - "bita-common/**/*"
+
+test:frontend:
+  stage: test
+  image: node:20-alpine
+  before_script:
+    - cd bita-esm-frontend
+    - npm ci
+  script:
+    - npm run test -- --coverage
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: bita-esm-frontend/coverage/cobertura-coverage.xml
+  rules:
+    - changes:
+        - "bita-esm-frontend/**/*"
+
+test:esb-core:
+  stage: test
+  image: maven:3.9-eclipse-temurin-17
+  services:
+    - redis:7-alpine
+  variables:
+    SPRING_REDIS_HOST: redis
+  script:
+    - mvn test -pl bita-esb-core -am
+  artifacts:
+    reports:
+      junit: bita-esb-core/target/surefire-reports/TEST-*.xml
+  rules:
+    - changes:
+        - "bita-esb-core/**/*"
+        - "bita-common/**/*"
+
+# =============================================================================
+# BUILD Stage
+# =============================================================================
+
+build:backend:
+  stage: build
+  image: maven:3.9-eclipse-temurin-17
+  script:
+    - mvn package -pl bita-esm-backend -am -DskipTests
+  artifacts:
+    paths:
+      - bita-esm-backend/target/*.jar
+    expire_in: 1 week
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+    - if: $CI_MERGE_REQUEST_ID
+
+build:frontend:
+  stage: build
+  image: node:20-alpine
+  before_script:
+    - cd bita-esm-frontend
+    - npm ci
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - bita-esm-frontend/dist
+    expire_in: 1 week
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+    - if: $CI_MERGE_REQUEST_ID
+
+build:esb-core:
+  stage: build
+  image: maven:3.9-eclipse-temurin-17
+  script:
+    - mvn package -pl bita-esb-core -am -DskipTests
+  artifacts:
+    paths:
+      - bita-esb-core/target/*.jar
+    expire_in: 1 week
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+    - if: $CI_MERGE_REQUEST_ID
+
+build:docker:backend:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  needs:
+    - build:backend
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY/bita-esm-backend:$CI_COMMIT_SHORT_SHA -f bita-esm-backend/Dockerfile bita-esm-backend/
+    - docker push $DOCKER_REGISTRY/bita-esm-backend:$CI_COMMIT_SHORT_SHA
+    - |
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        docker tag $DOCKER_REGISTRY/bita-esm-backend:$CI_COMMIT_SHORT_SHA $DOCKER_REGISTRY/bita-esm-backend:latest
+        docker push $DOCKER_REGISTRY/bita-esm-backend:latest
+      fi
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+build:docker:frontend:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  needs:
+    - build:frontend
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY/bita-esm-frontend:$CI_COMMIT_SHORT_SHA -f bita-esm-frontend/Dockerfile bita-esm-frontend/
+    - docker push $DOCKER_REGISTRY/bita-esm-frontend:$CI_COMMIT_SHORT_SHA
+    - |
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        docker tag $DOCKER_REGISTRY/bita-esm-frontend:$CI_COMMIT_SHORT_SHA $DOCKER_REGISTRY/bita-esm-frontend:latest
+        docker push $DOCKER_REGISTRY/bita-esm-frontend:latest
+      fi
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+build:docker:esb-core:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  needs:
+    - build:esb-core
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY/bita-esb-core:$CI_COMMIT_SHORT_SHA -f bita-esb-core/Dockerfile bita-esb-core/
+    - docker push $DOCKER_REGISTRY/bita-esb-core:$CI_COMMIT_SHORT_SHA
+    - |
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        docker tag $DOCKER_REGISTRY/bita-esb-core:$CI_COMMIT_SHORT_SHA $DOCKER_REGISTRY/bita-esb-core:latest
+        docker push $DOCKER_REGISTRY/bita-esb-core:latest
+      fi
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+# =============================================================================
+# SCAN Stage
+# =============================================================================
+
+scan:trivy:
+  stage: scan
+  image: 
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  needs:
+    - build:docker:backend
+    - build:docker:frontend
+    - build:docker:esb-core
+  script:
+    - trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_REGISTRY/bita-esm-backend:$CI_COMMIT_SHORT_SHA
+    - trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_REGISTRY/bita-esm-frontend:$CI_COMMIT_SHORT_SHA
+    - trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_REGISTRY/bita-esb-core:$CI_COMMIT_SHORT_SHA
+  allow_failure: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+# =============================================================================
+# DEPLOY Stage
+# =============================================================================
+
+deploy:dev:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  needs:
+    - build:docker:backend
+    - build:docker:frontend
+  variables:
+    KUBE_CONTEXT: $KUBE_CONTEXT_DEV
+  script:
+    - kubectl config use-context $KUBE_CONTEXT
+    - cd bita-infra/k8s
+    - kubectl apply -k overlays/dev
+    - kubectl set image deployment/dev-bita-esm-backend backend=$DOCKER_REGISTRY/bita-esm-backend:$CI_COMMIT_SHORT_SHA -n bita-dev
+    - kubectl set image deployment/dev-bita-esm-frontend frontend=$DOCKER_REGISTRY/bita-esm-frontend:$CI_COMMIT_SHORT_SHA -n bita-dev
+    - kubectl rollout status deployment/dev-bita-esm-backend -n bita-dev --timeout=300s
+    - kubectl rollout status deployment/dev-bita-esm-frontend -n bita-dev --timeout=300s
+  environment:
+    name: development
+    url: https://dev.bita.local
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+deploy:prod:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  needs:
+    - build:docker:backend
+    - build:docker:frontend
+    - scan:trivy
+  variables:
+    KUBE_CONTEXT: $KUBE_CONTEXT_PROD
+  script:
+    - kubectl config use-context $KUBE_CONTEXT
+    - cd bita-infra/k8s
+    - kubectl apply -k overlays/prod
+    - kubectl set image deployment/bita-esm-backend backend=$DOCKER_REGISTRY/bita-esm-backend:$CI_COMMIT_SHORT_SHA -n bita
+    - kubectl set image deployment/bita-esm-frontend frontend=$DOCKER_REGISTRY/bita-esm-frontend:$CI_COMMIT_SHORT_SHA -n bita
+    - kubectl rollout status deployment/bita-esm-backend -n bita --timeout=300s
+    - kubectl rollout status deployment/bita-esm-frontend -n bita --timeout=300s
+  environment:
+    name: production
+    url: https://bita.local
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

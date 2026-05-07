@@ -1,0 +1,138 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# IDE - Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+# IDE - NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# IDE - VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Application
+application-local.yml
+application-local.properties
+
+# Secrets
+*.pem
+*.p12
+*.jks
+*.keystore
+secrets/
+
+# Node.js (for frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Frontend build
+bita-esm-frontend/dist/
+bita-esm-frontend/build/
+bita-esm-frontend/.env.local
+bita-esm-frontend/.env.*.local
+
+# Docker
+docker-compose.override.yml
+
+# Kubernetes
+*.kubeconfig
+
+# Test output
+test-output/
+surefire-reports/
+failsafe-reports/
+
+# Coverage reports
+coverage/
+*.lcov
+jacoco.exec
+jacoco/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Python (repository test/utility scripts)
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Monorepo module artifacts
+bita-common/target/
+bita-esm-backend/target/
+bita-esb-core/target/
+bita-esm-frontend/node_modules/
+bita-esm-frontend/.cache/
+bita-esm-frontend/.turbo/

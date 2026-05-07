@@ -1,0 +1,43 @@
+version: '3.8'
+
+# Development overrides for docker-compose.yml
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+services:
+  postgres:
+    environment:
+      # Enable query logging for debugging
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    command: >
+      postgres
+      -c log_statement=all
+      -c log_duration=on
+
+  redis:
+    # Enable Redis debugging
+    command: redis-server --appendonly yes --loglevel debug
+
+  kafka:
+    environment:
+      # Additional Kafka configuration for development
+      KAFKA_LOG_RETENTION_HOURS: 24
+      KAFKA_LOG_RETENTION_BYTES: 1073741824
+
+  elasticsearch:
+    environment:
+      # More memory for development
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+
+  # Kibana for log visualization (development only)
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.3
+    container_name: bita-kibana
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - bita-network

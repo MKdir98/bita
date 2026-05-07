@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                   xmlns:tns="http://ws.esb.bita.ir/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                   targetNamespace="http://ws.esb.bita.ir/"
+                   name="PingService">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://ws.esb.bita.ir/">
+            <xsd:element name="ping" type="tns:pingRequest"/>
+            <xsd:element name="pingResponse" type="tns:pingResponse"/>
+            <xsd:complexType name="pingRequest">
+                <xsd:sequence>
+                    <xsd:element name="message" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="pingResponse">
+                <xsd:sequence>
+                    <xsd:element name="pingResponse" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="pingInput">
+        <wsdl:part name="parameters" element="tns:ping"/>
+    </wsdl:message>
+    <wsdl:message name="pingOutput">
+        <wsdl:part name="parameters" element="tns:pingResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="PingService">
+        <wsdl:operation name="ping">
+            <wsdl:input message="tns:pingInput"/>
+            <wsdl:output message="tns:pingOutput"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PingServiceSoapBinding" type="tns:PingService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="ping">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="PingService">
+        <wsdl:port name="PingServicePort" binding="tns:PingServiceSoapBinding">
+            <soap:address location="http://localhost:0/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

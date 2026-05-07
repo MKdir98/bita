@@ -1,0 +1,54 @@
+# Production Environment Configuration
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate  # Never auto-modify in production
+    show-sql: false
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+
+server:
+  port: 8081
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-token-expiration: 3600000  # 1 hour
+    refresh-token-expiration: 604800000  # 7 days
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS}
+  llm:
+    boofai:
+      enabled: ${BOOFAI_ENABLED:true}
+    gradient:
+      enabled: ${GRADIENT_ENABLED:false}
+    yqcloud:
+      enabled: ${YQCLOUD_ENABLED:false}
+    startnest:
+      enabled: ${STARTNEST_ENABLED:false}
+    cohere:
+      enabled: ${COHERE_ENABLED:false}
+    meta:
+      enabled: ${META_ENABLED:false}
+    deepseek:
+      enabled: ${DEEPSEEK_ENABLED:false}
+
+logging:
+  level:
+    root: WARN
+    ir.bita: INFO
+    org.hibernate.SQL: WARN

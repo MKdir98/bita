@@ -1,0 +1,83 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bita-ingress
+  namespace: bita
+  labels:
+    app.kubernetes.io/name: bita
+    app.kubernetes.io/part-of: bita-platform
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - bita.local
+        - esm.bita.local
+      secretName: bita-tls
+  rules:
+    # Frontend - main domain
+    - host: bita.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: bita-esm-frontend
+                port:
+                  number: 80
+    # ESM Backend API
+    - host: esm.bita.local
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: bita-esm-backend
+                port:
+                  number: 8080
+          - path: /actuator
+            pathType: Prefix
+            backend:
+              service:
+                name: bita-esm-backend
+                port:
+                  number: 8080
+---
+# Wildcard ingress for ESB endpoints
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bita-esb-ingress
+  namespace: bita
+  labels:
+    app.kubernetes.io/name: bita-esb
+    app.kubernetes.io/part-of: bita-platform
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "*.esb.bita.local"
+      secretName: bita-esb-tls
+  rules:
+    - host: "*.esb.bita.local"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                # Default backend - actual routing done via service-specific ingress
+                name: bita-esm-backend
+                port:
+                  number: 8080
