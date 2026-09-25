@@ -1,0 +1,21 @@
+{
+  "id": "c38",
+  "level": "L3",
+  "expectedBehavior": "ask",
+  "missingVariable": "pvAddress",
+  "expected": {
+    "templateId": 102,
+    "templateName": "rest-proxy-rate-limit",
+    "serviceName": "tax-inquiry",
+    "serviceVersion": "v1",
+    "collectionName": "bimeh-iran",
+    "variables": {
+      "pvAddress": "http://10.28.38.76:8080/api/tax-inquiry",
+      "gwPort": "18038",
+      "gwPath": "/esb/bimeh-iran/tax-inquiry/v1",
+      "rateLimitPerMinute": "120"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام مالیاتی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبیمه ایران در نظر دارد سرویس «استعلام مالیاتی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nAPI ما REST است و ظرفیت محدودی دارد؛ لطفاً سقف 120 فراخوانی در دقیقه برای هر سازمان مصرف‌کننده اعمال شود.\n\nمشخصات فنی:\n- نام فنی سرویس tax-inquiry، نسخهٔ v1، و مجموعهٔ bimeh-iran است.\n- پورت اختصاصی گذرگاه: 18038\n- مسیر انتشار روی گذرگاه: /esb/bimeh-iran/tax-inquiry/v1\n\nبا تشکر\nواحد فناوری اطلاعات بیمه ایران",
+  "followUp": "آدرس سرویس http://10.28.38.76:8080/api/tax-inquiry است."
+}

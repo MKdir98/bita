@@ -1,0 +1,19 @@
+{
+  "id": "c03",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 103,
+    "templateName": "soap-passthrough",
+    "serviceName": "insurance-history",
+    "serviceVersion": "v1",
+    "collectionName": "sepah",
+    "variables": {
+      "pvAddress": "http://10.23.3.31:8080/ws/insurance-history",
+      "gwPort": "18003",
+      "gwPath": "/esb/sepah/insurance-history/v1",
+      "pvWsdlUri": "http://10.23.3.31:8080/ws/insurance-history?wsdl"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام سابقهٔ بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک سپه در نظر دارد سرویس «استعلام سابقهٔ بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس از نوع SOAP است و نیازی به امنیت سطح پیام (WS-Security) ندارد.\n\nمشخصات فنی:\n- نام فنی سرویس insurance-history، نسخهٔ v1، و مجموعهٔ sepah است.\n- آدرس سرویس: http://10.23.3.31:8080/ws/insurance-history\n- آدرس WSDL: http://10.23.3.31:8080/ws/insurance-history?wsdl\n- پورت اختصاصی گذرگاه: 18003\n- مسیر انتشار روی گذرگاه: /esb/sepah/insurance-history/v1\n\nبا تشکر\nواحد فناوری اطلاعات بانک سپه"
+}

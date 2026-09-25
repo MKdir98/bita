@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                   xmlns:tns="http://ws.esb.bita.ir/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                   targetNamespace="http://ws.esb.bita.ir/"
+                   name="EchoService">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://ws.esb.bita.ir/">
+            <xsd:element name="echo" type="tns:echoRequest"/>
+            <xsd:element name="echoResponse" type="tns:echoResponseType"/>
+            <xsd:complexType name="echoRequest">
+                <xsd:sequence>
+                    <xsd:element name="message" type="xsd:string"/>
+                    <xsd:element name="time" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="echoResponseType">
+                <xsd:sequence>
+                    <xsd:element name="echoResponse" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="echoInput">
+        <wsdl:part name="parameters" element="tns:echo"/>
+    </wsdl:message>
+    <wsdl:message name="echoOutput">
+        <wsdl:part name="parameters" element="tns:echoResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="EchoService">
+        <wsdl:operation name="echo">
+            <wsdl:input message="tns:echoInput"/>
+            <wsdl:output message="tns:echoOutput"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EchoServiceSoapBinding" type="tns:EchoService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="echo">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EchoService">
+        <wsdl:port name="EchoServicePort" binding="tns:EchoServiceSoapBinding">
+            <soap:address location="http://localhost:0/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

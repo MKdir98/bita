@@ -9,6 +9,7 @@ import ir.bita.esm.route.repository.ComponentTemplateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,6 +62,10 @@ public class ComponentTemplateTool implements LlmTool {
                         "configSchema", Map.of(
                                 "type", "object",
                                 "description", "JSON Schema پارامترهای قابل تنظیم"
+                        ),
+                        "groovyCode", Map.of(
+                                "type", "string",
+                                "description", "کد Groovy کلاس component — در اسکریپت نهایی سرویس inline می‌شود"
                         )
                 ),
                 "required", new String[]{}
@@ -81,6 +86,13 @@ public class ComponentTemplateTool implements LlmTool {
                         "error", true,
                         "message", "نام فقط می‌تواند شامل حروف انگلیسی کوچک، اعداد و - باشد"
                 );
+            }
+
+            List<String> storage = new java.util.ArrayList<>(
+                    DataStoragePolicy.violations("groovyCode", (String) arguments.get("groovyCode")));
+            storage.addAll(DataStoragePolicy.violations("className", (String) arguments.get("className")));
+            if (!storage.isEmpty()) {
+                return Map.of("error", true, "message", DataStoragePolicy.message(storage));
             }
 
             // Parse component type
@@ -106,6 +118,7 @@ public class ComponentTemplateTool implements LlmTool {
                         .componentType(componentType)
                         .className((String) arguments.get("className"))
                         .configSchema((Map<String, Object>) arguments.get("configSchema"))
+                        .groovyCode((String) arguments.get("groovyCode"))
                         .build();
 
                 var result = updateHandler.handle(command);
@@ -133,6 +146,7 @@ public class ComponentTemplateTool implements LlmTool {
                         .componentType(componentType)
                         .className((String) arguments.get("className"))
                         .configSchema((Map<String, Object>) arguments.get("configSchema"))
+                        .groovyCode((String) arguments.get("groovyCode"))
                         .build();
 
                 var result = createHandler.handle(command);

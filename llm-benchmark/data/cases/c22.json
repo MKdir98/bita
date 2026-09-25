@@ -1,0 +1,22 @@
+{
+  "id": "c22",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 104,
+    "templateName": "soap-ws-security",
+    "serviceName": "iban-validate",
+    "serviceVersion": "v1",
+    "collectionName": "gomrok",
+    "variables": {
+      "pvAddress": "http://10.42.22.164:8080/ws/iban-validate",
+      "gwPort": "18022",
+      "gwPath": "/esb/gomrok/iban-validate/v1",
+      "pvWsdlUri": "http://10.42.22.164:8080/ws/iban-validate?wsdl",
+      "securityPolicy": "Timestamp+Signature",
+      "signaturePropsFile": "iban-validate-sig.properties",
+      "truststorePropsFile": "iban-validate-trust.properties"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «اعتبارسنجی شبا» روی گذرگاه بیتا\n\nبا سلام و احترام،\nگمرک ایران در نظر دارد سرویس «اعتبارسنجی شبا» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nمستندات نسخهٔ قدیمی سرویس در http://docs.legacy.local/old-api موجود است که دیگر معتبر نیست و نباید استفاده شود.\nسرویس SOAP است و طبق الزامات امنیتی، پیام‌ها باید با WS-Security 1.1 امضا شوند (همراه با Timestamp)؛ رمزنگاری لازم نیست.\n\nنام فنی سرویس iban-validate، نسخهٔ v1، و مجموعهٔ gomrok است.\nفایل properties امضا iban-validate-sig.properties است.\nپیش‌بینی می‌شود روزانه حدود ۲۰۰۰ درخواست به این سرویس ارسال شود.\nمسیر انتشار روی گذرگاه /esb/gomrok/iban-validate/v1 است.\nپورت ۱۸۰۲۲ برای این سرویس روی گذرگاه رزرو شده است.\nآدرس WSDL http://10.42.22.164:8080/ws/iban-validate?wsdl است.\nفایل properties مخزن اعتماد (truststore) iban-validate-trust.properties است.\nآدرس سرویس http://10.42.22.164:8080/ws/iban-validate است.\n\nبا تشکر\nواحد فناوری اطلاعات گمرک ایران"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "c14",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 102,
+    "templateName": "rest-proxy-rate-limit",
+    "serviceName": "tax-inquiry",
+    "serviceVersion": "v2",
+    "collectionName": "behzisti",
+    "variables": {
+      "pvAddress": "http://10.34.14.108:8080/api/tax-inquiry",
+      "gwPort": "18014",
+      "gwPath": "/esb/behzisti/tax-inquiry/v2",
+      "rateLimitPerMinute": "60"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام مالیاتی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان بهزیستی در نظر دارد سرویس «استعلام مالیاتی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس از نوع REST است. برای جلوگیری از فشار بار، هر کلاینت حداکثر 60 درخواست در دقیقه مجاز است.\n\nمشخصات فنی:\n- نام فنی سرویس tax-inquiry، نسخهٔ v2، و مجموعهٔ behzisti است.\n- آدرس سرویس: http://10.34.14.108:8080/api/tax-inquiry\n- پورت اختصاصی گذرگاه: 18014\n- مسیر انتشار روی گذرگاه: /esb/behzisti/tax-inquiry/v2\n\nبا تشکر\nواحد فناوری اطلاعات سازمان بهزیستی"
+}

@@ -1,7 +1,6 @@
 package ir.bita.esm.service.entity;
 
 import ir.bita.common.domain.ServicePhase;
-import ir.bita.esm.route.entity.Route;
 import ir.bita.esm.shared.entity.SoftDeletableEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -86,27 +85,7 @@ public class ServiceEntity extends SoftDeletableEntity {
 
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<Route> routes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
     private List<ServiceAccess> accessRules = new ArrayList<>();
-
-    /**
-     * Adds a route to this service.
-     */
-    public void addRoute(Route route) {
-        routes.add(route);
-        route.setService(this);
-    }
-
-    /**
-     * Removes a route from this service.
-     */
-    public void removeRoute(Route route) {
-        routes.remove(route);
-        route.setService(null);
-    }
 
     /**
      * Checks if this service is deployed to Kubernetes.

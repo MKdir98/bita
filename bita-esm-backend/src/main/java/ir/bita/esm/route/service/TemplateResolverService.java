@@ -48,7 +48,7 @@ public class TemplateResolverService {
 
     /**
      * Resolves placeholders in a URI pattern.
-     * 
+     *
      * @param uriPattern the URI pattern with placeholders (e.g., "cxf:bean:{{serviceName}}")
      * @param config the configuration values
      * @return the resolved URI
@@ -64,7 +64,7 @@ public class TemplateResolverService {
         while (matcher.find()) {
             String placeholder = matcher.group(1);
             Object value = config.get(placeholder);
-            
+
             if (value == null) {
                 log.warn("Missing value for placeholder: {}", placeholder);
                 matcher.appendReplacement(result, Matcher.quoteReplacement("{{" + placeholder + "}}"));
@@ -79,7 +79,7 @@ public class TemplateResolverService {
 
     /**
      * Validates configuration against a JSON schema.
-     * 
+     *
      * @param config the configuration to validate
      * @param schema the JSON schema
      * @throws IllegalArgumentException if validation fails
@@ -187,7 +187,7 @@ public class TemplateResolverService {
 
     /**
      * Applies default values from schema to config.
-     * 
+     *
      * @param config the configuration
      * @param schema the JSON schema with defaults
      * @return config with defaults applied
@@ -209,7 +209,7 @@ public class TemplateResolverService {
             String fieldName = entry.getKey();
             @SuppressWarnings("unchecked")
             Map<String, Object> fieldSchema = (Map<String, Object>) entry.getValue();
-            
+
             if (!result.containsKey(fieldName) && fieldSchema.containsKey("default")) {
                 result.put(fieldName, fieldSchema.get("default"));
             }

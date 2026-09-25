@@ -8,7 +8,6 @@ import ir.bita.esm.client.entity.Credential;
 import ir.bita.esm.service.entity.ServiceAccess;
 import ir.bita.esm.service.entity.ServiceCollection;
 import ir.bita.esm.service.entity.ServiceEntity;
-import ir.bita.esm.route.entity.Route;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
@@ -43,8 +42,7 @@ public class AuditQueryService {
             "credential", Credential.class,
             "service", ServiceEntity.class,
             "service-collection", ServiceCollection.class,
-            "service-access", ServiceAccess.class,
-            "route", Route.class
+            "service-access", ServiceAccess.class
     );
 
     /**

@@ -1,0 +1,21 @@
+{
+  "id": "c18",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 106,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "bill-payment",
+    "serviceVersion": "v1",
+    "collectionName": "bimeh-iran",
+    "variables": {
+      "pvAddress": "http://10.38.18.136:8080/ws/bill-payment",
+      "gwPort": "18018",
+      "gwPath": "/esb/bimeh-iran/bill-payment/v1",
+      "pvWsdlUri": "http://10.38.18.136:8080/ws/bill-payment?wsdl",
+      "backendUsername": "bimeh-iran_esb",
+      "backendPassword": "Pw1666!x"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «پرداخت قبض» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبیمه ایران در نظر دارد سرویس «پرداخت قبض» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nدسترسی به وب‌سرویس SOAP ما نیازمند احراز هویت Basic است (کاربر: bimeh-iran_esb، رمز: Pw1666!x)؛ این اعتبارنامه را گذرگاه هنگام فراخوانی سرویس ما ارسال کند.\n\nمشخصات فنی:\n- نام فنی سرویس bill-payment، نسخهٔ v1، و مجموعهٔ bimeh-iran است.\n- آدرس سرویس: http://10.38.18.136:8080/ws/bill-payment\n- آدرس WSDL: http://10.38.18.136:8080/ws/bill-payment?wsdl\n- پورت اختصاصی گذرگاه: 18018\n- مسیر انتشار روی گذرگاه: /esb/bimeh-iran/bill-payment/v1\n\nبا تشکر\nواحد فناوری اطلاعات بیمه ایران"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "c57",
+  "level": "L5",
+  "expectedBehavior": "create-template",
+  "capability": "json-to-xml",
+  "split": "test",
+  "expected": {
+    "templateId": 0,
+    "templateName": "-",
+    "serviceName": "certificate-issue",
+    "serviceVersion": "v1",
+    "collectionName": "gas",
+    "variables": {
+      "gwPort": "18057",
+      "gwPath": "/esb/gas/certificate-issue/v1",
+      "pvAddress": "http://10.87.57.209:8080/api/certificate-issue"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «صدور گواهی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nشرکت ملی گاز در نظر دارد سرویس «صدور گواهی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است و پاسخ را JSON برمی‌گرداند، اما سامانه‌های مصرف‌کننده فقط XML می‌فهمند. گذرگاه باید پاسخ را به XML تبدیل کند: یک عنصر ریشهٔ <response> و زیر آن برای هر فیلد JSON یک عنصر هم‌نام با همان مقدار، با Content-Type برابر application/xml.\n\nمشخصات فنی:\n- نام فنی سرویس certificate-issue، نسخهٔ v1، و مجموعهٔ gas است.\n- آدرس سرویس: http://10.87.57.209:8080/api/certificate-issue\n- پورت اختصاصی گذرگاه: 18057\n- مسیر انتشار روی گذرگاه: /esb/gas/certificate-issue/v1\n\nبا تشکر\nواحد فناوری اطلاعات شرکت ملی گاز",
+  "reuse": {
+    "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام قبض گاز» روی گذرگاه بیتا\n\nبا سلام و احترام،\nگمرک ایران در نظر دارد سرویس «استعلام قبض گاز» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است و پاسخ را JSON برمی‌گرداند، اما سامانه‌های مصرف‌کننده فقط XML می‌فهمند. گذرگاه باید پاسخ را به XML تبدیل کند: یک عنصر ریشهٔ <response> و زیر آن برای هر فیلد JSON یک عنصر هم‌نام با همان مقدار، با Content-Type برابر application/xml.\n\nمشخصات فنی:\n- نام فنی سرویس gas-bill، نسخهٔ v1، و مجموعهٔ gomrok است.\n- آدرس سرویس: http://10.67.67.79:8080/api/gas-bill\n- پورت اختصاصی گذرگاه: 18067\n- مسیر انتشار روی گذرگاه: /esb/gomrok/gas-bill/v1\n\nبا تشکر\nواحد فناوری اطلاعات گمرک ایران",
+    "serviceName": "gas-bill",
+    "collectionName": "gomrok",
+    "variables": {
+      "gwPort": "18067",
+      "gwPath": "/esb/gomrok/gas-bill/v1",
+      "pvAddress": "http://10.67.67.79:8080/api/gas-bill"
+    }
+  }
+}

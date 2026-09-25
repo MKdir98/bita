@@ -1,0 +1,18 @@
+{
+  "id": "c31",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 101,
+    "templateName": "rest-proxy",
+    "serviceName": "declaration-submit",
+    "serviceVersion": "v1",
+    "collectionName": "mellat",
+    "variables": {
+      "pvAddress": "http://10.21.31.27:8080/api/declaration-submit",
+      "gwPort": "18031",
+      "gwPath": "/esb/mellat/declaration-submit/v1"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «ثبت اظهارنامه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک ملت در نظر دارد سرویس «ثبت اظهارنامه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nمستندات نسخهٔ قدیمی سرویس در http://docs.legacy.local/old-api موجود است که دیگر معتبر نیست و نباید استفاده شود.\nاین یک API مبتنی بر REST/JSON است که باید بدون تغییر از طریق بیتا منتشر شود.\n\nنام فنی سرویس declaration-submit، نسخهٔ v1، و مجموعهٔ mellat است.\nآدرس سرویس http://10.21.31.27:8080/api/declaration-submit است.\nبرای هماهنگی با کارشناس فنی ما با شمارهٔ ۰۲۱-۸۸۷۷۶۶۵۵ تماس بگیرید.\nپورت ۱۸۰۳۱ برای این سرویس روی گذرگاه رزرو شده است.\nمسیر انتشار روی گذرگاه /esb/mellat/declaration-submit/v1 است.\n\nبا تشکر\nواحد فناوری اطلاعات بانک ملت"
+}

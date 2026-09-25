@@ -1,0 +1,30 @@
+{
+  "id": "c53",
+  "level": "L5",
+  "expectedBehavior": "create-template",
+  "capability": "get-only",
+  "split": "dev",
+  "expected": {
+    "templateId": 0,
+    "templateName": "-",
+    "serviceName": "postal-code",
+    "serviceVersion": "v2",
+    "collectionName": "sepah",
+    "variables": {
+      "gwPort": "18053",
+      "gwPath": "/esb/sepah/postal-code/v2",
+      "pvAddress": "http://10.83.53.181:8080/api/postal-code"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام کد پستی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک سپه در نظر دارد سرویس «استعلام کد پستی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است و فقط برای خواندن است. گذرگاه باید فقط درخواست‌های GET را به سرویس ما برساند و هر متد دیگری (POST، PUT، DELETE و ...) را بدون فراخوانی سرویس ما با کد 405 رد کند.\n\nمشخصات فنی:\n- نام فنی سرویس postal-code، نسخهٔ v2، و مجموعهٔ sepah است.\n- آدرس سرویس: http://10.83.53.181:8080/api/postal-code\n- پورت اختصاصی گذرگاه: 18053\n- مسیر انتشار روی گذرگاه: /esb/sepah/postal-code/v2\n\nبا تشکر\nواحد فناوری اطلاعات بانک سپه",
+  "reuse": {
+    "document": "موضوع: درخواست راه‌اندازی سرویس «رهگیری مرسوله» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبیمه ایران در نظر دارد سرویس «رهگیری مرسوله» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است و فقط برای خواندن است. گذرگاه باید فقط درخواست‌های GET را به سرویس ما برساند و هر متد دیگری (POST، PUT، DELETE و ...) را بدون فراخوانی سرویس ما با کد 405 رد کند.\n\nمشخصات فنی:\n- نام فنی سرویس parcel-tracking، نسخهٔ v1، و مجموعهٔ bimeh-iran است.\n- آدرس سرویس: http://10.63.63.51:8080/api/parcel-tracking\n- پورت اختصاصی گذرگاه: 18063\n- مسیر انتشار روی گذرگاه: /esb/bimeh-iran/parcel-tracking/v1\n\nبا تشکر\nواحد فناوری اطلاعات بیمه ایران",
+    "serviceName": "parcel-tracking",
+    "collectionName": "bimeh-iran",
+    "variables": {
+      "gwPort": "18063",
+      "gwPath": "/esb/bimeh-iran/parcel-tracking/v1",
+      "pvAddress": "http://10.63.63.51:8080/api/parcel-tracking"
+    }
+  }
+}

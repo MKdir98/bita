@@ -1,0 +1,23 @@
+{
+  "id": "c42",
+  "level": "L3",
+  "expectedBehavior": "ask",
+  "missingVariable": "gwPort",
+  "expected": {
+    "templateId": 106,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "bill-payment",
+    "serviceVersion": "v2",
+    "collectionName": "gomrok",
+    "variables": {
+      "pvAddress": "http://10.32.42.104:8080/ws/bill-payment",
+      "gwPort": "18042",
+      "gwPath": "/esb/gomrok/bill-payment/v2",
+      "pvWsdlUri": "http://10.32.42.104:8080/ws/bill-payment?wsdl",
+      "backendUsername": "gomrok_esb",
+      "backendPassword": "Pw2554!x"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «پرداخت قبض» روی گذرگاه بیتا\n\nبا سلام و احترام،\nگمرک ایران در نظر دارد سرویس «پرداخت قبض» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nدسترسی به وب‌سرویس SOAP ما نیازمند احراز هویت Basic است (کاربر: gomrok_esb، رمز: Pw2554!x)؛ این اعتبارنامه را گذرگاه هنگام فراخوانی سرویس ما ارسال کند.\n\nمشخصات فنی:\n- نام فنی سرویس bill-payment، نسخهٔ v2، و مجموعهٔ gomrok است.\n- آدرس سرویس: http://10.32.42.104:8080/ws/bill-payment\n- آدرس WSDL: http://10.32.42.104:8080/ws/bill-payment?wsdl\n- مسیر انتشار روی گذرگاه: /esb/gomrok/bill-payment/v2\n\nبا تشکر\nواحد فناوری اطلاعات گمرک ایران",
+  "followUp": "پورت اختصاصی گذرگاه 18042 است."
+}

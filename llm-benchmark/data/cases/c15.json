@@ -1,0 +1,19 @@
+{
+  "id": "c15",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 103,
+    "templateName": "soap-passthrough",
+    "serviceName": "insurance-history",
+    "serviceVersion": "v2",
+    "collectionName": "sabt",
+    "variables": {
+      "pvAddress": "http://10.35.15.115:8080/ws/insurance-history",
+      "gwPort": "18015",
+      "gwPath": "/esb/sabt/insurance-history/v2",
+      "pvWsdlUri": "http://10.35.15.115:8080/ws/insurance-history?wsdl"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام سابقهٔ بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان ثبت احوال در نظر دارد سرویس «استعلام سابقهٔ بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nوب‌سرویس ما SOAP است؛ امضا یا رمزنگاری پیام لازم نیست و فقط انتشار از طریق گذرگاه کافی است.\n\nمشخصات فنی:\n- نام فنی سرویس insurance-history، نسخهٔ v2، و مجموعهٔ sabt است.\n- آدرس سرویس: http://10.35.15.115:8080/ws/insurance-history\n- آدرس WSDL: http://10.35.15.115:8080/ws/insurance-history?wsdl\n- پورت اختصاصی گذرگاه: 18015\n- مسیر انتشار روی گذرگاه: /esb/sabt/insurance-history/v2\n\nبا تشکر\nواحد فناوری اطلاعات سازمان ثبت احوال"
+}

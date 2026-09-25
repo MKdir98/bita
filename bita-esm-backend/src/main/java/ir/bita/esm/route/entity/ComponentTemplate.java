@@ -72,4 +72,11 @@ public class ComponentTemplate extends SoftDeletableEntity {
      */
     @Column(name = "category", length = 50)
     private String category;
+
+    /**
+     * Groovy class body implementing the component interface.
+     * Inlined at the top of the assembled service script by ScriptAssemblyService.
+     */
+    @Column(name = "groovy_code", columnDefinition = "TEXT")
+    private String groovyCode;
 }

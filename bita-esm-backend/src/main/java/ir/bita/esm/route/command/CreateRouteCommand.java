@@ -47,17 +47,17 @@ public class CreateRouteCommand {
     @AllArgsConstructor
     public static class EndpointConfig {
         private Long templateId;
-        
+
         @NotBlank(message = "Endpoint name is required")
         private String name;
-        
+
         private String description;
-        
+
         @NotBlank(message = "URI is required")
         private String uri;
-        
+
         private Map<String, Object> config;
-        
+
         private Integer defaultRateLimit;
     }
 
@@ -67,18 +67,18 @@ public class CreateRouteCommand {
     @AllArgsConstructor
     public static class ComponentConfig {
         private Long templateId;
-        
+
         @NotBlank(message = "Component name is required")
         private String name;
-        
+
         private String description;
-        
+
         @NotNull(message = "Component type is required")
         private ComponentType componentType;
-        
+
         @NotBlank(message = "Class name is required")
         private String className;
-        
+
         private Map<String, Object> config;
     }
 }

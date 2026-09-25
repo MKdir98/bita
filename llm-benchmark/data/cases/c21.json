@@ -1,0 +1,19 @@
+{
+  "id": "c21",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 103,
+    "templateName": "soap-passthrough",
+    "serviceName": "certificate-issue",
+    "serviceVersion": "v1",
+    "collectionName": "mellat",
+    "variables": {
+      "pvAddress": "http://10.41.21.157:8080/ws/certificate-issue",
+      "gwPort": "18021",
+      "gwPath": "/esb/mellat/certificate-issue/v1",
+      "pvWsdlUri": "http://10.41.21.157:8080/ws/certificate-issue?wsdl"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «صدور گواهی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک ملت در نظر دارد سرویس «صدور گواهی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین سرویس در سال گذشته به‌صورت آزمایشی برای سه سازمان راه‌اندازی شده بود و اکنون قرار است رسمی شود.\nسرویس از نوع SOAP است و نیازی به امنیت سطح پیام (WS-Security) ندارد.\n\nنام فنی سرویس certificate-issue، نسخهٔ v1، و مجموعهٔ mellat است.\nآدرس سرویس http://10.41.21.157:8080/ws/certificate-issue است.\nپیش‌بینی می‌شود روزانه حدود ۲۰۰۰ درخواست به این سرویس ارسال شود.\nآدرس WSDL http://10.41.21.157:8080/ws/certificate-issue?wsdl است.\nپورت ۱۸۰۲۱ برای این سرویس روی گذرگاه رزرو شده است.\nمسیر انتشار روی گذرگاه /esb/mellat/certificate-issue/v1 است.\n\nبا تشکر\nواحد فناوری اطلاعات بانک ملت"
+}

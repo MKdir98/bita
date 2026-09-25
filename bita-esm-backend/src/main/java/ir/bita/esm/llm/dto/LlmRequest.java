@@ -32,6 +32,8 @@ public class LlmRequest {
         private String content;
         private List<ToolCall> toolCalls;
         private String toolCallId;
+        /** For role "tool": the tool that produced this result (required by stricter chat templates). */
+        private String name;
     }
 
     @Data

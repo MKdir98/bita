@@ -1,0 +1,32 @@
+{
+  "id": "c56",
+  "level": "L5",
+  "expectedBehavior": "create-template",
+  "capability": "bearer-token",
+  "split": "test",
+  "expected": {
+    "templateId": 0,
+    "templateName": "-",
+    "serviceName": "gas-bill",
+    "serviceVersion": "v2",
+    "collectionName": "post",
+    "variables": {
+      "gwPort": "18056",
+      "gwPath": "/esb/post/gas-bill/v2",
+      "pvAddress": "http://10.86.56.202:8080/api/gas-bill",
+      "bearerToken": "tk-8cc76116"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام قبض گاز» روی گذرگاه بیتا\n\nبا سلام و احترام،\nشرکت ملی پست در نظر دارد سرویس «استعلام قبض گاز» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است، ولی فقط فراخوانی‌هایی را می‌پذیرد که هدر Authorization: Bearer tk-8cc76116 داشته باشند. سازمان‌های مصرف‌کننده این توکن را ندارند و نباید داشته باشند؛ گذرگاه باید خودش آن را به هر فراخوانی سرویس ما اضافه کند.\n\nمشخصات فنی:\n- نام فنی سرویس gas-bill، نسخهٔ v2، و مجموعهٔ post است.\n- آدرس سرویس: http://10.86.56.202:8080/api/gas-bill\n- پورت اختصاصی گذرگاه: 18056\n- مسیر انتشار روی گذرگاه: /esb/post/gas-bill/v2\n\nبا تشکر\nواحد فناوری اطلاعات شرکت ملی پست",
+  "reuse": {
+    "document": "موضوع: درخواست راه‌اندازی سرویس «ثبت اظهارنامه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک ملت در نظر دارد سرویس «ثبت اظهارنامه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است، ولی فقط فراخوانی‌هایی را می‌پذیرد که هدر Authorization: Bearer tk-981e5b6c داشته باشند. سازمان‌های مصرف‌کننده این توکن را ندارند و نباید داشته باشند؛ گذرگاه باید خودش آن را به هر فراخوانی سرویس ما اضافه کند.\n\nمشخصات فنی:\n- نام فنی سرویس declaration-submit، نسخهٔ v1، و مجموعهٔ mellat است.\n- آدرس سرویس: http://10.66.66.72:8080/api/declaration-submit\n- پورت اختصاصی گذرگاه: 18066\n- مسیر انتشار روی گذرگاه: /esb/mellat/declaration-submit/v1\n\nبا تشکر\nواحد فناوری اطلاعات بانک ملت",
+    "serviceName": "declaration-submit",
+    "collectionName": "mellat",
+    "variables": {
+      "gwPort": "18066",
+      "gwPath": "/esb/mellat/declaration-submit/v1",
+      "pvAddress": "http://10.66.66.72:8080/api/declaration-submit",
+      "bearerToken": "tk-981e5b6c"
+    }
+  }
+}

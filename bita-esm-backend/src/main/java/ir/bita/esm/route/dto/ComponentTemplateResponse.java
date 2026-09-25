@@ -21,6 +21,7 @@ public class ComponentTemplateResponse {
     private String className;
     private Map<String, Object> configSchema;
     private String category;
+    private String groovyCode;
     private boolean active;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

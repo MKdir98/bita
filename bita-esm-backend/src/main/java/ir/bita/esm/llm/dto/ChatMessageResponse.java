@@ -21,6 +21,8 @@ public class ChatMessageResponse {
     private List<ToolCallResponse> toolCalls;
     private ToolCallResponse pendingToolExecution;
     private LocalDateTime createdAt;
+    /** The model's reply broke the action format and was re-sent once after being told why. */
+    private boolean formatRepaired;
 
     @Data
     @Builder

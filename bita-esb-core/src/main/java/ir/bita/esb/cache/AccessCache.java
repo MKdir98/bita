@@ -107,6 +107,43 @@ public class AccessCache {
         log.info("Access cache cleared");
     }
 
+    /**
+     * Returns true if the client has a valid access rule for ANY route in this service.
+     * Used by {@link ir.bita.esb.access.DefaultRouteAccessService} where the routeId is not
+     * available at the call site (Groovy scripts call {@code accessService.hasAccess(clientId)}).
+     */
+    public boolean hasAnyAccess(String clientId) {
+        String prefix = clientId + ":";
+        for (Map.Entry<String, AccessRule> entry : accessRules.entrySet()) {
+            if (entry.getKey().startsWith(prefix)) {
+                AccessRule rule = entry.getValue();
+                if (rule.isActive() && (rule.getExpiresAt() == null || Instant.now().isBefore(rule.getExpiresAt()))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks the rate limit for the client against the first matching access rule.
+     * Used by Groovy scripts where no routeId is available at the call site.
+     */
+    public boolean checkRateLimitAny(String clientId) {
+        String prefix = clientId + ":";
+        for (String key : accessRules.keySet()) {
+            if (key.startsWith(prefix)) {
+                String routeIdStr = key.substring(prefix.length());
+                try {
+                    return checkRateLimit(clientId, Long.parseLong(routeIdStr));
+                } catch (NumberFormatException ignored) {
+                    // skip malformed key
+                }
+            }
+        }
+        return true; // no rule → no limit configured
+    }
+
     public int size() {
         return accessRules.size();
     }

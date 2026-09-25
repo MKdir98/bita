@@ -29,7 +29,7 @@ public class RouteQueryService {
     private final RouteFileRepository fileRepository;
 
     // Endpoint Template Queries
-    
+
     public EndpointTemplateResponse getEndpointTemplate(Long id) {
         EndpointTemplate template = endpointTemplateRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new IllegalArgumentException("Endpoint template not found"));
@@ -46,7 +46,7 @@ public class RouteQueryService {
     }
 
     // Component Template Queries
-    
+
     public ComponentTemplateResponse getComponentTemplate(Long id) {
         ComponentTemplate template = componentTemplateRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new IllegalArgumentException("Component template not found"));
@@ -58,7 +58,7 @@ public class RouteQueryService {
     }
 
     // Route Template Queries
-    
+
     public RouteTemplateResponse getRouteTemplate(Long id) {
         RouteTemplate template = routeTemplateRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new IllegalArgumentException("Route template not found"));
@@ -70,7 +70,7 @@ public class RouteQueryService {
     }
 
     // Route Queries
-    
+
     public RouteResponse getRoute(Long id) {
         Route route = routeRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new IllegalArgumentException("Route not found"));
@@ -87,19 +87,19 @@ public class RouteQueryService {
     }
 
     // Endpoint Queries
-    
+
     public Page<Endpoint> listEndpoints(Pageable pageable) {
         return endpointRepository.findAll(pageable);
     }
 
     // Component Queries
-    
+
     public Page<Component> listComponents(Pageable pageable) {
         return componentRepository.findAll(pageable);
     }
 
     // Mappers
-    
+
     private EndpointTemplateResponse mapEndpointTemplate(EndpointTemplate t) {
         return EndpointTemplateResponse.builder()
                 .id(t.getId()).name(t.getName()).description(t.getDescription())
@@ -116,6 +116,7 @@ public class RouteQueryService {
                 .id(t.getId()).name(t.getName()).description(t.getDescription())
                 .componentType(t.getComponentType()).className(t.getClassName())
                 .configSchema(t.getConfigSchema()).category(t.getCategory())
+                .groovyCode(t.getGroovyCode())
                 .active(t.isActive()).createdAt(t.getCreatedAt()).updatedAt(t.getUpdatedAt())
                 .build();
     }

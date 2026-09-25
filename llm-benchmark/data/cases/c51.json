@@ -1,0 +1,32 @@
+{
+  "id": "c51",
+  "level": "L5",
+  "expectedBehavior": "create-template",
+  "capability": "bearer-token",
+  "split": "dev",
+  "expected": {
+    "templateId": 0,
+    "templateName": "-",
+    "serviceName": "insurance-history",
+    "serviceVersion": "v1",
+    "collectionName": "mellat",
+    "variables": {
+      "gwPort": "18051",
+      "gwPath": "/esb/mellat/insurance-history/v1",
+      "pvAddress": "http://10.81.51.167:8080/api/insurance-history",
+      "bearerToken": "tk-d430f8fd"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام سابقهٔ بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک ملت در نظر دارد سرویس «استعلام سابقهٔ بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است، ولی فقط فراخوانی‌هایی را می‌پذیرد که هدر Authorization: Bearer tk-d430f8fd داشته باشند. سازمان‌های مصرف‌کننده این توکن را ندارند و نباید داشته باشند؛ گذرگاه باید خودش آن را به هر فراخوانی سرویس ما اضافه کند.\n\nمشخصات فنی:\n- نام فنی سرویس insurance-history، نسخهٔ v1، و مجموعهٔ mellat است.\n- آدرس سرویس: http://10.81.51.167:8080/api/insurance-history\n- پورت اختصاصی گذرگاه: 18051\n- مسیر انتشار روی گذرگاه: /esb/mellat/insurance-history/v1\n\nبا تشکر\nواحد فناوری اطلاعات بانک ملت",
+  "reuse": {
+    "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام مالیاتی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nشرکت ملی پست در نظر دارد سرویس «استعلام مالیاتی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است، ولی فقط فراخوانی‌هایی را می‌پذیرد که هدر Authorization: Bearer tk-a95a3ae داشته باشند. سازمان‌های مصرف‌کننده این توکن را ندارند و نباید داشته باشند؛ گذرگاه باید خودش آن را به هر فراخوانی سرویس ما اضافه کند.\n\nمشخصات فنی:\n- نام فنی سرویس tax-inquiry، نسخهٔ v1، و مجموعهٔ post است.\n- آدرس سرویس: http://10.61.61.37:8080/api/tax-inquiry\n- پورت اختصاصی گذرگاه: 18061\n- مسیر انتشار روی گذرگاه: /esb/post/tax-inquiry/v1\n\nبا تشکر\nواحد فناوری اطلاعات شرکت ملی پست",
+    "serviceName": "tax-inquiry",
+    "collectionName": "post",
+    "variables": {
+      "gwPort": "18061",
+      "gwPath": "/esb/post/tax-inquiry/v1",
+      "pvAddress": "http://10.61.61.37:8080/api/tax-inquiry",
+      "bearerToken": "tk-a95a3ae"
+    }
+  }
+}

@@ -25,6 +25,7 @@ public class GrantAccessHandler {
     private final ServiceRepository serviceRepository;
     private final ClientRepository clientRepository;
     private final DomainEventPublisher eventPublisher;
+    private final ir.bita.esm.route.service.EsbReloadNotifier esbNotifier;
 
     @Transactional
     public ServiceAccess handle(GrantAccessCommand command) {
@@ -49,8 +50,9 @@ public class GrantAccessHandler {
             access.setValidUntil(command.getValidUntil());
             access.setGrantReason(command.getGrantReason());
             access = accessRepository.save(access);
-            
-            log.info("Reactivated access for client {} to service {}", 
+            esbNotifier.resyncAfterCommit(service.getId());
+
+            log.info("Reactivated access for client {} to service {}",
                     command.getClientId(), command.getServiceId());
             return access;
         }
@@ -74,6 +76,7 @@ public class GrantAccessHandler {
                 .serviceId(service.getId())
                 .build();
         eventPublisher.publish(event);
+        esbNotifier.resyncAfterCommit(access.getService().getId());
 
         log.info("Granted access for client {} to service {}", 
                 command.getClientId(), command.getServiceId());

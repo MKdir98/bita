@@ -37,7 +37,7 @@ public class RouteBuilderService {
     public RouteDefinition buildRoute(Long routeId) {
         Route route = routeRepository.findByIdAndDeletedFalse(routeId)
                 .orElseThrow(() -> new IllegalArgumentException("Route not found"));
-        
+
         return buildRouteDefinition(route);
     }
 

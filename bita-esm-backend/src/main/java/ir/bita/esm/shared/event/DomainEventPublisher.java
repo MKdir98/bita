@@ -24,7 +24,18 @@ public class DomainEventPublisher {
         String topic = getTopicForEvent(event);
         String key = event.getAggregateId() != null ? event.getAggregateId().toString() : null;
 
-        kafkaTemplate.send(topic, key, event)
+        // Publishing is a side effect of an already-committed business decision: an unreachable
+        // broker must not roll back the service/access change itself. KafkaProducer.send() can
+        // throw synchronously (e.g. metadata timeout), not only fail the returned future.
+        java.util.concurrent.CompletableFuture<org.springframework.kafka.support.SendResult<String, Object>> sent;
+        try {
+            sent = kafkaTemplate.send(topic, key, event);
+        } catch (RuntimeException e) {
+            log.error("Failed to publish event {} to topic {}: {}",
+                    event.getClass().getSimpleName(), topic, e.getMessage());
+            return;
+        }
+        sent
                 .whenComplete((result, ex) -> {
                     if (ex != null) {
                         log.error("Failed to publish event {} to topic {}: {}", 

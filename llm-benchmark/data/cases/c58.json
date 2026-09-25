@@ -1,0 +1,30 @@
+{
+  "id": "c58",
+  "level": "L5",
+  "expectedBehavior": "create-template",
+  "capability": "get-only",
+  "split": "test",
+  "expected": {
+    "templateId": 0,
+    "templateName": "-",
+    "serviceName": "iban-validate",
+    "serviceVersion": "v2",
+    "collectionName": "bimeh-iran",
+    "variables": {
+      "gwPort": "18058",
+      "gwPath": "/esb/bimeh-iran/iban-validate/v2",
+      "pvAddress": "http://10.88.58.16:8080/api/iban-validate"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «اعتبارسنجی شبا» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبیمه ایران در نظر دارد سرویس «اعتبارسنجی شبا» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است و فقط برای خواندن است. گذرگاه باید فقط درخواست‌های GET را به سرویس ما برساند و هر متد دیگری (POST، PUT، DELETE و ...) را بدون فراخوانی سرویس ما با کد 405 رد کند.\n\nمشخصات فنی:\n- نام فنی سرویس iban-validate، نسخهٔ v2، و مجموعهٔ bimeh-iran است.\n- آدرس سرویس: http://10.88.58.16:8080/api/iban-validate\n- پورت اختصاصی گذرگاه: 18058\n- مسیر انتشار روی گذرگاه: /esb/bimeh-iran/iban-validate/v2\n\nبا تشکر\nواحد فناوری اطلاعات بیمه ایران",
+  "reuse": {
+    "document": "موضوع: درخواست راه‌اندازی سرویس «صدور گواهی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک سپه در نظر دارد سرویس «صدور گواهی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس ما REST است و فقط برای خواندن است. گذرگاه باید فقط درخواست‌های GET را به سرویس ما برساند و هر متد دیگری (POST، PUT، DELETE و ...) را بدون فراخوانی سرویس ما با کد 405 رد کند.\n\nمشخصات فنی:\n- نام فنی سرویس certificate-issue، نسخهٔ v1، و مجموعهٔ sepah است.\n- آدرس سرویس: http://10.68.68.86:8080/api/certificate-issue\n- پورت اختصاصی گذرگاه: 18068\n- مسیر انتشار روی گذرگاه: /esb/sepah/certificate-issue/v1\n\nبا تشکر\nواحد فناوری اطلاعات بانک سپه",
+    "serviceName": "certificate-issue",
+    "collectionName": "sepah",
+    "variables": {
+      "gwPort": "18068",
+      "gwPath": "/esb/sepah/certificate-issue/v1",
+      "pvAddress": "http://10.68.68.86:8080/api/certificate-issue"
+    }
+  }
+}

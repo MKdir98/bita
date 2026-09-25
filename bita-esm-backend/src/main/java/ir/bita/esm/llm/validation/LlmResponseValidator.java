@@ -3,11 +3,11 @@ package ir.bita.esm.llm.validation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.bita.esm.llm.dto.ActionResponse;
+import ir.bita.esm.llm.tool.ToolRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -20,18 +20,7 @@ import java.util.Map;
 public class LlmResponseValidator {
 
     private final ObjectMapper objectMapper;
-
-    private static final List<String> VALID_ACTIONS = Arrays.asList(
-            "ask_question",
-            "request_data",
-            "endpoint_template",
-            "component_template",
-            "route_template",
-            "endpoint_instance",
-            "component_instance",
-            "route_instance",
-            "complete"
-    );
+    private final ToolRegistry toolRegistry;
 
     /**
      * Validates and parses JSON response from LLM.
@@ -63,10 +52,15 @@ public class LlmResponseValidator {
                 throw new ValidationException("فیلد 'params' الزامی است");
             }
 
-            // Validate action is in allowed list
-            if (!VALID_ACTIONS.contains(response.getAction())) {
+            // Validate action is one of the tools actually registered in ToolRegistry —
+            // sourced live rather than a hardcoded list, so this can't silently drift out
+            // of sync with the tools again (it previously still listed pre-Groovy-migration
+            // names like endpoint_template/route_instance and was missing create_service/
+            // service_groovy_config entirely).
+            List<String> validActions = toolRegistry.getToolNames();
+            if (!validActions.contains(response.getAction())) {
                 throw new ValidationException("action نامعتبر است: " + response.getAction() +
-                        ". action های مجاز: " + String.join(", ", VALID_ACTIONS));
+                        ". action های مجاز: " + String.join(", ", validActions));
             }
 
             log.debug("Validated action response: action={}, params={}", 

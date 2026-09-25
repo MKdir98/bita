@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * DTO for service sync data.
  */
@@ -27,5 +25,4 @@ public class ServiceSyncDto {
     private Integer minReplicas;
     private Integer maxReplicas;
     private boolean active;
-    private List<RouteSyncDto> routes;
 }

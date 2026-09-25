@@ -31,6 +31,7 @@ public class CreateComponentTemplateHandler {
                 .className(command.getClassName())
                 .configSchema(command.getConfigSchema())
                 .category(command.getCategory())
+                .groovyCode(command.getGroovyCode())
                 .build();
 
         template = repository.save(template);

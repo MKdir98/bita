@@ -1,0 +1,21 @@
+{
+  "id": "c30",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 106,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "bill-payment",
+    "serviceVersion": "v2",
+    "collectionName": "tax",
+    "variables": {
+      "pvAddress": "http://10.20.30.20:8080/ws/bill-payment",
+      "gwPort": "18030",
+      "gwPath": "/esb/tax/bill-payment/v2",
+      "pvWsdlUri": "http://10.20.30.20:8080/ws/bill-payment?wsdl",
+      "backendUsername": "tax_esb",
+      "backendPassword": "Pw2110!x"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «پرداخت قبض» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان امور مالیاتی در نظر دارد سرویس «پرداخت قبض» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nمستندات نسخهٔ قدیمی سرویس در http://docs.legacy.local/old-api موجود است که دیگر معتبر نیست و نباید استفاده شود.\nسرویس SOAP ما خودش با Basic Auth محافظت می‌شود؛ گذرگاه باید با نام کاربری tax_esb و رمز Pw2110!x به آن متصل شود.\n\nنام فنی سرویس bill-payment، نسخهٔ v2، و مجموعهٔ tax است.\nآدرس سرویس http://10.20.30.20:8080/ws/bill-payment است.\nسطح توافق خدمت (SLA) این سرویس ۹۹.۵ درصد در ماه تعریف شده است.\nپورت ۱۸۰۳۰ برای این سرویس روی گذرگاه رزرو شده است.\nمسیر انتشار روی گذرگاه /esb/tax/bill-payment/v2 است.\nآدرس WSDL http://10.20.30.20:8080/ws/bill-payment?wsdl است.\n\nبا تشکر\nواحد فناوری اطلاعات سازمان امور مالیاتی"
+}

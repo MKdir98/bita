@@ -1,0 +1,21 @@
+{
+  "id": "c12",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 106,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "fund-transfer",
+    "serviceVersion": "v2",
+    "collectionName": "gomrok",
+    "variables": {
+      "pvAddress": "http://10.32.12.94:8080/ws/fund-transfer",
+      "gwPort": "18012",
+      "gwPath": "/esb/gomrok/fund-transfer/v2",
+      "pvWsdlUri": "http://10.32.12.94:8080/ws/fund-transfer?wsdl",
+      "backendUsername": "gomrok_esb",
+      "backendPassword": "Pw1444!x"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «انتقال وجه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nگمرک ایران در نظر دارد سرویس «انتقال وجه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس SOAP ما خودش با Basic Auth محافظت می‌شود؛ گذرگاه باید با نام کاربری gomrok_esb و رمز Pw1444!x به آن متصل شود.\n\nمشخصات فنی:\n- نام فنی سرویس fund-transfer، نسخهٔ v2، و مجموعهٔ gomrok است.\n- آدرس سرویس: http://10.32.12.94:8080/ws/fund-transfer\n- آدرس WSDL: http://10.32.12.94:8080/ws/fund-transfer?wsdl\n- پورت اختصاصی گذرگاه: 18012\n- مسیر انتشار روی گذرگاه: /esb/gomrok/fund-transfer/v2\n\nبا تشکر\nواحد فناوری اطلاعات گمرک ایران"
+}

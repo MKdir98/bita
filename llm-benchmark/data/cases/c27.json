@@ -1,0 +1,19 @@
+{
+  "id": "c27",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 103,
+    "templateName": "soap-passthrough",
+    "serviceName": "insurance-history",
+    "serviceVersion": "v1",
+    "collectionName": "gas",
+    "variables": {
+      "pvAddress": "http://10.47.27.199:8080/ws/insurance-history",
+      "gwPort": "18027",
+      "gwPath": "/esb/gas/insurance-history/v1",
+      "pvWsdlUri": "http://10.47.27.199:8080/ws/insurance-history?wsdl"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام سابقهٔ بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nشرکت ملی گاز در نظر دارد سرویس «استعلام سابقهٔ بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nمستندات نسخهٔ قدیمی سرویس در http://docs.legacy.local/old-api موجود است که دیگر معتبر نیست و نباید استفاده شود.\nوب‌سرویس ما SOAP است؛ امضا یا رمزنگاری پیام لازم نیست و فقط انتشار از طریق گذرگاه کافی است.\n\nنام فنی سرویس insurance-history، نسخهٔ v1، و مجموعهٔ gas است.\nآدرس سرویس http://10.47.27.199:8080/ws/insurance-history است.\nپیش‌بینی می‌شود روزانه حدود ۲۰۰۰ درخواست به این سرویس ارسال شود.\nمسیر انتشار روی گذرگاه /esb/gas/insurance-history/v1 است.\nپورت ۱۸۰۲۷ برای این سرویس روی گذرگاه رزرو شده است.\nآدرس WSDL http://10.47.27.199:8080/ws/insurance-history?wsdl است.\n\nبا تشکر\nواحد فناوری اطلاعات شرکت ملی گاز"
+}

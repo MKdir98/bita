@@ -17,9 +17,9 @@ class ServicePhaseTest {
     }
 
     @Test
-    @DisplayName("TEST should not be deployed")
-    void testShouldNotBeDeployed() {
-        assertThat(ServicePhase.TEST.isDeployed()).isFalse();
+    @DisplayName("TEST should be deployed")
+    void testShouldBeDeployed() {
+        assertThat(ServicePhase.TEST.isDeployed()).isTrue();
     }
 
     @Test

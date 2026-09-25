@@ -1,0 +1,20 @@
+{
+  "id": "c43",
+  "level": "L3",
+  "expectedBehavior": "ask",
+  "missingVariable": "gwPort",
+  "expected": {
+    "templateId": 101,
+    "templateName": "rest-proxy",
+    "serviceName": "declaration-submit",
+    "serviceVersion": "v2",
+    "collectionName": "sepah",
+    "variables": {
+      "pvAddress": "http://10.33.43.111:8080/api/declaration-submit",
+      "gwPort": "18043",
+      "gwPath": "/esb/sepah/declaration-submit/v2"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «ثبت اظهارنامه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک سپه در نظر دارد سرویس «ثبت اظهارنامه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس از نوع REST است و فقط باید از طریق گذرگاه در اختیار سازمان‌های متقاضی قرار گیرد؛ محدودیت خاصی روی تعداد درخواست نداریم.\n\nمشخصات فنی:\n- نام فنی سرویس declaration-submit، نسخهٔ v2، و مجموعهٔ sepah است.\n- آدرس سرویس: http://10.33.43.111:8080/api/declaration-submit\n- مسیر انتشار روی گذرگاه: /esb/sepah/declaration-submit/v2\n\nبا تشکر\nواحد فناوری اطلاعات بانک سپه",
+  "followUp": "پورت اختصاصی گذرگاه 18043 است."
+}

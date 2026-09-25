@@ -28,6 +28,7 @@ public class ActionHandler {
     private final ToolRegistry toolRegistry;
     private final ChatMessageRepository messageRepository;
     private final ToolExecutionRepository toolExecutionRepository;
+    private final com.fasterxml.jackson.databind.ObjectMapper objectMapper;
 
     /**
      * Handles an action from LLM by executing the corresponding tool.
@@ -56,17 +57,31 @@ public class ActionHandler {
 
         // Create assistant message with the action
         String messageContent = buildMessageContent(actionName, params);
+        // the assistant turn records the call it made in the same shape as a native tool_call, so
+        // the history replayed to the model is consistent: the TOOL result that follows refers to
+        // a call that exists (strict chat templates, e.g. gpt-oss on Groq, reject it otherwise)
+        String toolCallId = "action_" + System.currentTimeMillis();
+        String argumentsJson;
+        try {
+            argumentsJson = objectMapper.writeValueAsString(params == null ? Map.of() : params);
+        } catch (Exception e) {
+            argumentsJson = "{}";
+        }
         ChatMessage assistantMessage = ChatMessage.builder()
                 .session(session)
                 .role(MessageRole.ASSISTANT)
                 .content(messageContent)
+                .toolCalls(List.of(Map.<String, Object>of(
+                        "id", toolCallId,
+                        "type", "function",
+                        "function", Map.<String, Object>of("name", toolName, "arguments", argumentsJson))))
                 .build();
         assistantMessage = messageRepository.save(assistantMessage);
 
         // Create tool execution record
         ToolExecution execution = ToolExecution.builder()
                 .message(assistantMessage)
-                .toolCallId("action_" + System.currentTimeMillis())
+                .toolCallId(toolCallId)
                 .toolName(toolName)
                 .arguments(params)
                 .requiresConfirmation(requiresConfirmation)
@@ -103,9 +118,9 @@ public class ActionHandler {
                         : question;
             }
         }
-        // For actions requiring confirmation (endpoint_template, component_template, etc.),
-        // show what will be created so user can review before confirming
-        if (params != null && !params.isEmpty() && isConfirmableAction(actionName)) {
+        // For actions requiring confirmation, show exactly what will be created so the user can
+        // review the values before confirming (or reject and ask for a change in the chat)
+        if (params != null && !params.isEmpty() && toolRegistry.requiresConfirmation(actionName)) {
             try {
                 String paramsJson = new com.fasterxml.jackson.databind.ObjectMapper()
                         .writerWithDefaultPrettyPrinter()
@@ -119,26 +134,12 @@ public class ActionHandler {
         return String.format("اجرای action: %s", actionName);
     }
 
-    private boolean isConfirmableAction(String actionName) {
-        return "endpoint_template".equals(actionName)
-                || "component_template".equals(actionName)
-                || "route_template".equals(actionName)
-                || "endpoint_instance".equals(actionName)
-                || "component_instance".equals(actionName)
-                || "route_instance".equals(actionName)
-                || "create_route".equals(actionName)
-                || "complete".equals(actionName);
-    }
-
     private String getActionLabel(String actionName) {
         return switch (actionName) {
-            case "endpoint_template" -> "قالب Endpoint";
-            case "component_template" -> "قالب Component";
-            case "route_template" -> "قالب Route";
-            case "endpoint_instance" -> "نمونه Endpoint";
-            case "component_instance" -> "نمونه Component";
-            case "route_instance" -> "نمونه Route";
-            case "create_route" -> "ایجاد مسیر";
+            case "create_service" -> "ساخت سرویس";
+            case "service_groovy_config" -> "پیکربندی سرویس با قالب";
+            case "component_template" -> "قطعهٔ Groovy";
+            case "groovy_template" -> "قالب Groovy تازه";
             case "complete" -> "اتمام";
             default -> actionName;
         };

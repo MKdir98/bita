@@ -16,10 +16,20 @@ public class EsbConfig {
 
     private final Long serviceId;
     private final int httpPort;
-    
+
+    /**
+     * Sandbox mode (ESB_MODE=sandbox): runs no service — no SERVICE_ID, no sync with ESM — and
+     * only serves trial runs of proposed templates (/internal/trial-script).
+     */
+    private final boolean sandbox;
+
     // ESM Backend connection
     private final String esmBaseUrl;
     private final String esmApiKey;
+
+    // BITA gateway keystore (mounted as K8s secret inside the pod)
+    private final String bitaKeystorePath;
+    private final String bitaPassword;
     
     // Kafka configuration
     private final String kafkaBootstrapServers;
@@ -34,14 +44,18 @@ public class EsbConfig {
     private final String elasticsearchUrl;
     
     public static EsbConfig load() {
-        Long serviceId = getEnvAsLong("SERVICE_ID")
+        boolean sandbox = getEnv("ESB_MODE").map("sandbox"::equalsIgnoreCase).orElse(false);
+        Long serviceId = sandbox ? null : getEnvAsLong("SERVICE_ID")
                 .orElseThrow(() -> new IllegalStateException("SERVICE_ID environment variable is required"));
 
         return EsbConfig.builder()
                 .serviceId(serviceId)
+                .sandbox(sandbox)
                 .httpPort(getEnvAsInt("HTTP_PORT").orElse(8080))
                 .esmBaseUrl(getEnv("ESM_BASE_URL").orElse("http://bita-esm-backend:8081"))
                 .esmApiKey(getEnv("ESM_API_KEY").orElse(""))
+                .bitaKeystorePath(getEnv("BITA_KEYSTORE_PATH").orElse("/etc/esb/secrets/bita-keystore.properties"))
+                .bitaPassword(getEnv("BITA_KEYSTORE_PASSWORD").orElse("changeit"))
                 .kafkaBootstrapServers(getEnv("KAFKA_BOOTSTRAP_SERVERS").orElse("localhost:9092"))
                 .kafkaGroupId(getEnv("KAFKA_GROUP_ID").orElse("esb-core-" + serviceId))
                 .redisHost(getEnv("REDIS_HOST").orElse("localhost"))

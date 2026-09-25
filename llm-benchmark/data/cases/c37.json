@@ -1,0 +1,20 @@
+{
+  "id": "c37",
+  "level": "L3",
+  "expectedBehavior": "ask",
+  "missingVariable": "pvAddress",
+  "expected": {
+    "templateId": 101,
+    "templateName": "rest-proxy",
+    "serviceName": "identity-inquiry",
+    "serviceVersion": "v1",
+    "collectionName": "gas",
+    "variables": {
+      "pvAddress": "http://10.27.37.69:8080/api/identity-inquiry",
+      "gwPort": "18037",
+      "gwPath": "/esb/gas/identity-inquiry/v1"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام هویت» روی گذرگاه بیتا\n\nبا سلام و احترام،\nشرکت ملی گاز در نظر دارد سرویس «استعلام هویت» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین یک API مبتنی بر REST/JSON است که باید بدون تغییر از طریق بیتا منتشر شود.\n\nمشخصات فنی:\n- نام فنی سرویس identity-inquiry، نسخهٔ v1، و مجموعهٔ gas است.\n- پورت اختصاصی گذرگاه: 18037\n- مسیر انتشار روی گذرگاه: /esb/gas/identity-inquiry/v1\n\nبا تشکر\nواحد فناوری اطلاعات شرکت ملی گاز",
+  "followUp": "آدرس سرویس http://10.27.37.69:8080/api/identity-inquiry است."
+}

@@ -1,0 +1,32 @@
+{
+  "id": "c59",
+  "level": "L5",
+  "expectedBehavior": "create-template",
+  "capability": "fan-out",
+  "split": "test",
+  "expected": {
+    "templateId": 0,
+    "templateName": "-",
+    "serviceName": "insurance-status",
+    "serviceVersion": "v1",
+    "collectionName": "tamin",
+    "variables": {
+      "gwPort": "18059",
+      "gwPath": "/esb/tamin/insurance-status/v1",
+      "pvAddressFirst": "http://10.89.59.23:8080/api/insurance-status-a",
+      "pvAddressSecond": "http://10.89.59.23:8081/api/insurance-status-b"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام وضعیت بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان تأمین اجتماعی در نظر دارد سرویس «استعلام وضعیت بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین سرویس از دو سرویس REST موجود ما ساخته می‌شود: سرویس اول در http://10.89.59.23:8080/api/insurance-status-a و سرویس دوم در http://10.89.59.23:8081/api/insurance-status-b. برای هر درخواست GET، گذرگاه باید هر دو را با همان مسیر فراخوانی کند و یک JSON ترکیبی برگرداند: {\"first\": پاسخ سرویس اول, \"second\": پاسخ سرویس دوم}.\n\nمشخصات فنی:\n- نام فنی سرویس insurance-status، نسخهٔ v1، و مجموعهٔ tamin است.\n- پورت اختصاصی گذرگاه: 18059\n- مسیر انتشار روی گذرگاه: /esb/tamin/insurance-status/v1\n\nبا تشکر\nواحد فناوری اطلاعات سازمان تأمین اجتماعی",
+  "reuse": {
+    "document": "موضوع: درخواست راه‌اندازی سرویس «اعتبارسنجی شبا» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان بهزیستی در نظر دارد سرویس «اعتبارسنجی شبا» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین سرویس از دو سرویس REST موجود ما ساخته می‌شود: سرویس اول در http://10.69.69.93:8080/api/iban-validate-a و سرویس دوم در http://10.69.69.93:8081/api/iban-validate-b. برای هر درخواست GET، گذرگاه باید هر دو را با همان مسیر فراخوانی کند و یک JSON ترکیبی برگرداند: {\"first\": پاسخ سرویس اول, \"second\": پاسخ سرویس دوم}.\n\nمشخصات فنی:\n- نام فنی سرویس iban-validate، نسخهٔ v1، و مجموعهٔ behzisti است.\n- پورت اختصاصی گذرگاه: 18069\n- مسیر انتشار روی گذرگاه: /esb/behzisti/iban-validate/v1\n\nبا تشکر\nواحد فناوری اطلاعات سازمان بهزیستی",
+    "serviceName": "iban-validate",
+    "collectionName": "behzisti",
+    "variables": {
+      "gwPort": "18069",
+      "gwPath": "/esb/behzisti/iban-validate/v1",
+      "pvAddressFirst": "http://10.69.69.93:8080/api/iban-validate-a",
+      "pvAddressSecond": "http://10.69.69.93:8081/api/iban-validate-b"
+    }
+  }
+}

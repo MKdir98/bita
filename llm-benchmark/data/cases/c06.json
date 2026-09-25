@@ -1,0 +1,21 @@
+{
+  "id": "c06",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 106,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "bill-payment",
+    "serviceVersion": "v1",
+    "collectionName": "post",
+    "variables": {
+      "pvAddress": "http://10.26.6.52:8080/ws/bill-payment",
+      "gwPort": "18006",
+      "gwPath": "/esb/post/bill-payment/v1",
+      "pvWsdlUri": "http://10.26.6.52:8080/ws/bill-payment?wsdl",
+      "backendUsername": "post_esb",
+      "backendPassword": "Pw1222!x"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «پرداخت قبض» روی گذرگاه بیتا\n\nبا سلام و احترام،\nشرکت ملی پست در نظر دارد سرویس «پرداخت قبض» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس SOAP ما خودش با Basic Auth محافظت می‌شود؛ گذرگاه باید با نام کاربری post_esb و رمز Pw1222!x به آن متصل شود.\n\nمشخصات فنی:\n- نام فنی سرویس bill-payment، نسخهٔ v1، و مجموعهٔ post است.\n- آدرس سرویس: http://10.26.6.52:8080/ws/bill-payment\n- آدرس WSDL: http://10.26.6.52:8080/ws/bill-payment?wsdl\n- پورت اختصاصی گذرگاه: 18006\n- مسیر انتشار روی گذرگاه: /esb/post/bill-payment/v1\n\nبا تشکر\nواحد فناوری اطلاعات شرکت ملی پست"
+}

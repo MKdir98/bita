@@ -1,0 +1,21 @@
+{
+  "id": "c24",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 106,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "fund-transfer",
+    "serviceVersion": "v1",
+    "collectionName": "behzisti",
+    "variables": {
+      "pvAddress": "http://10.44.24.178:8080/ws/fund-transfer",
+      "gwPort": "18024",
+      "gwPath": "/esb/behzisti/fund-transfer/v1",
+      "pvWsdlUri": "http://10.44.24.178:8080/ws/fund-transfer?wsdl",
+      "backendUsername": "behzisti_esb",
+      "backendPassword": "Pw1888!x"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «انتقال وجه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان بهزیستی در نظر دارد سرویس «انتقال وجه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین سرویس در سال گذشته به‌صورت آزمایشی برای سه سازمان راه‌اندازی شده بود و اکنون قرار است رسمی شود.\nسرویس SOAP ما خودش با Basic Auth محافظت می‌شود؛ گذرگاه باید با نام کاربری behzisti_esb و رمز Pw1888!x به آن متصل شود.\n\nنام فنی سرویس fund-transfer، نسخهٔ v1، و مجموعهٔ behzisti است.\nپورت ۱۸۰۲۴ برای این سرویس روی گذرگاه رزرو شده است.\nسطح توافق خدمت (SLA) این سرویس ۹۹.۵ درصد در ماه تعریف شده است.\nآدرس WSDL http://10.44.24.178:8080/ws/fund-transfer?wsdl است.\nمسیر انتشار روی گذرگاه /esb/behzisti/fund-transfer/v1 است.\nآدرس سرویس http://10.44.24.178:8080/ws/fund-transfer است.\n\nبا تشکر\nواحد فناوری اطلاعات سازمان بهزیستی"
+}

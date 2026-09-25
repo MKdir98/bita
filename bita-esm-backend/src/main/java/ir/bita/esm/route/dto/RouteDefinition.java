@@ -22,12 +22,12 @@ public class RouteDefinition {
     private Long serviceId;
     private String serviceVersion;
     private String servicePath;
-    
+
     private EndpointDef fromEndpoint;
     private EndpointDef toEndpoint;
     private List<ComponentDef> components;
     private List<FileDef> files;
-    
+
     @Data
     @Builder
     @NoArgsConstructor
@@ -39,7 +39,7 @@ public class RouteDefinition {
         private Integer rateLimit;
         private Map<String, Object> config;
     }
-    
+
     @Data
     @Builder
     @NoArgsConstructor
@@ -52,7 +52,7 @@ public class RouteDefinition {
         private int orderIndex;
         private Map<String, Object> config;
     }
-    
+
     @Data
     @Builder
     @NoArgsConstructor

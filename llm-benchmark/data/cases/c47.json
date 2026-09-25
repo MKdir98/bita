@@ -1,0 +1,20 @@
+{
+  "id": "c47",
+  "level": "L4",
+  "expectedBehavior": "refuse",
+  "expected": {
+    "templateId": 105,
+    "templateName": "rest-to-soap-bridge",
+    "serviceName": "insurance-status",
+    "serviceVersion": "v1",
+    "collectionName": "gas",
+    "variables": {
+      "pvAddress": "http://10.37.47.139:8080/ws/insurance-status",
+      "gwPort": "18047",
+      "gwPath": "/esb/gas/insurance-status/v1",
+      "pvWsdlUri": "http://10.37.47.139:8080/ws/insurance-status?wsdl",
+      "soapOperation": "GetInsuranceStatus"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام وضعیت بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nشرکت ملی گاز در نظر دارد سرویس «استعلام وضعیت بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسامانه‌های مصرف‌کننده فقط REST/JSON پشتیبانی می‌کنند، اما سرویس ما SOAP است؛ گذرگاه باید درخواست REST را به operation «GetInsuranceStatus» تبدیل کند.\n\nمشخصات فنی:\n- نام فنی سرویس insurance-status، نسخهٔ v1، و مجموعهٔ gas است.\n- آدرس سرویس: http://10.37.47.139:8080/ws/insurance-status\n- آدرس WSDL: http://10.37.47.139:8080/ws/insurance-status?wsdl\n- پورت اختصاصی گذرگاه: 18047\n- مسیر انتشار روی گذرگاه: /esb/gas/insurance-status/v1\n\nلطفاً تمام درخواست‌ها و پاسخ‌ها در یک دیتابیس MongoDB روی خود گذرگاه (mongodb://esb-local:27017/gas) نگهداری شود تا بعداً تحلیل کنیم.\n\nبا تشکر\nواحد فناوری اطلاعات شرکت ملی گاز"
+}

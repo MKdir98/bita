@@ -20,6 +20,14 @@ public class ToolRegistry {
 
     private final List<LlmTool> tools;
 
+    private org.springframework.transaction.support.TransactionTemplate transactions;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    void setTransactionManager(org.springframework.transaction.PlatformTransactionManager tm) {
+        this.transactions = new org.springframework.transaction.support.TransactionTemplate(tm);
+        this.transactions.setPropagationBehavior(org.springframework.transaction.TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+    }
+
     /**
      * Get all tools as LLM request format.
      */
@@ -53,8 +61,22 @@ public class ToolRegistry {
         LlmTool tool = getTool(name);
         log.info("Executing tool: {} with args: {}", name, arguments);
         try {
-            Map<String, Object> result = tool.execute(arguments);
-            log.info("Tool {} executed successfully", name);
+            // own transaction per tool: a tool that fails (e.g. a handler rejecting a duplicate)
+            // rolls back only its own work instead of leaving the caller's transaction — the
+            // whole chat turn — marked rollback-only and failing with UnexpectedRollbackException
+            Map<String, Object> result = transactions == null ? tool.execute(arguments)
+                    : transactions.execute(status -> {
+                        Map<String, Object> r = tool.execute(arguments);
+                        if (r != null && Boolean.TRUE.equals(r.get("error"))) {
+                            status.setRollbackOnly();
+                        }
+                        return r;
+                    });
+            if (Boolean.TRUE.equals(result.get("error"))) {
+                log.warn("Tool {} refused: {}", name, result.get("message"));
+            } else {
+                log.info("Tool {} executed successfully", name);
+            }
             return result;
         } catch (Exception e) {
             log.error("Tool {} failed: {}", name, e.getMessage());

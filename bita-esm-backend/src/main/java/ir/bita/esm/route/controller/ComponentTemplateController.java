@@ -7,6 +7,7 @@ import ir.bita.esm.route.dto.ComponentTemplateResponse;
 import ir.bita.esm.route.entity.ComponentTemplate;
 import ir.bita.esm.route.handler.CreateComponentTemplateHandler;
 import ir.bita.esm.route.query.RouteQueryService;
+import ir.bita.esm.route.repository.ComponentTemplateRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ public class ComponentTemplateController {
 
     private final CreateComponentTemplateHandler createHandler;
     private final RouteQueryService queryService;
+    private final ComponentTemplateRepository componentTemplateRepository;
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'SERVICE_MANAGER')")
@@ -46,5 +48,34 @@ public class ComponentTemplateController {
     @Operation(summary = "Get component template by ID")
     public ResponseEntity<ComponentTemplateResponse> get(@PathVariable Long id) {
         return ResponseEntity.ok(queryService.getComponentTemplate(id));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SERVICE_MANAGER')")
+    @Operation(summary = "Update component template")
+    public ResponseEntity<ComponentTemplateResponse> update(@PathVariable Long id,
+                                                            @Valid @RequestBody CreateComponentTemplateCommand cmd) {
+        ComponentTemplate template = componentTemplateRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException("Component template not found"));
+        template.setName(cmd.getName());
+        template.setDescription(cmd.getDescription());
+        template.setComponentType(cmd.getComponentType());
+        template.setClassName(cmd.getClassName());
+        template.setConfigSchema(cmd.getConfigSchema());
+        template.setCategory(cmd.getCategory());
+        template.setGroovyCode(cmd.getGroovyCode());
+        componentTemplateRepository.save(template);
+        return ResponseEntity.ok(queryService.getComponentTemplate(id));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SERVICE_MANAGER')")
+    @Operation(summary = "Delete component template")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        ComponentTemplate template = componentTemplateRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException("Component template not found"));
+        template.softDelete();
+        componentTemplateRepository.save(template);
+        return ResponseEntity.noContent().build();
     }
 }

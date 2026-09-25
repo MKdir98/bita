@@ -7,6 +7,9 @@ import io.fabric8.kubernetes.api.model.networking.v1.HTTPIngressPath;
 import io.fabric8.kubernetes.api.model.networking.v1.Ingress;
 import io.fabric8.kubernetes.api.model.networking.v1.IngressRule;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import ir.bita.common.domain.VariableType;
+import ir.bita.esm.route.entity.GroovyTemplate;
+import ir.bita.esm.route.repository.ServiceGroovyConfigRepository;
 import ir.bita.esm.service.entity.ServiceEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service for deploying/undeploying services to Kubernetes.
@@ -28,6 +32,7 @@ public class KubernetesDeployerService implements KubernetesDeployer {
     private final K8sDeploymentBuilder deploymentBuilder;
     private final K8sServiceBuilder serviceBuilder;
     private final K8sHpaBuilder hpaBuilder;
+    private final ServiceGroovyConfigRepository groovyConfigRepository;
 
     @Value("${kubernetes.namespace:bita-esb}")
     private String namespace;
@@ -41,8 +46,11 @@ public class KubernetesDeployerService implements KubernetesDeployer {
             String deploymentName = service.generateK8sName();
             String serviceName = deploymentName + "-svc";
 
+            // Resolve PORT variables from the service's GroovyTemplate (if any)
+            List<GroovyTemplate.VariableMetadata> portVars = getPortVariables(service.getId());
+
             // 1. Create Deployment
-            Deployment deployment = deploymentBuilder.build(service, deploymentName);
+            Deployment deployment = deploymentBuilder.build(service, deploymentName, portVars);
             kubernetesClient.apps().deployments()
                     .inNamespace(namespace)
                     .resource(deployment)
@@ -50,7 +58,7 @@ public class KubernetesDeployerService implements KubernetesDeployer {
             log.info("Created Deployment: {}", deploymentName);
 
             // 2. Create Service
-            io.fabric8.kubernetes.api.model.Service k8sService = serviceBuilder.build(service, serviceName, deploymentName);
+            io.fabric8.kubernetes.api.model.Service k8sService = serviceBuilder.build(service, serviceName, deploymentName, portVars);
             kubernetesClient.services()
                     .inNamespace(namespace)
                     .resource(k8sService)
@@ -65,8 +73,8 @@ public class KubernetesDeployerService implements KubernetesDeployer {
                     .create();
             log.info("Created HPA for: {}", deploymentName);
 
-            // 4. Add Ingress path
-            addIngressPath(service, serviceName);
+            // 4. Add Ingress path(s)
+            addIngressPath(service, serviceName, portVars);
 
             log.info("Successfully deployed service {} to Kubernetes", service.getId());
 
@@ -86,16 +94,17 @@ public class KubernetesDeployerService implements KubernetesDeployer {
     public void undeployService(ServiceEntity service) {
         log.info("Undeploying service {} from Kubernetes namespace {}", service.getId(), namespace);
 
-        String deploymentName = service.getK8sDeploymentName() != null 
-                ? service.getK8sDeploymentName() 
+        String deploymentName = service.getK8sDeploymentName() != null
+                ? service.getK8sDeploymentName()
                 : service.generateK8sName();
-        String serviceName = service.getK8sServiceName() != null 
-                ? service.getK8sServiceName() 
+        String serviceName = service.getK8sServiceName() != null
+                ? service.getK8sServiceName()
                 : deploymentName + "-svc";
 
         try {
-            // 1. Remove Ingress path
-            removeIngressPath(service);
+            // 1. Remove Ingress path(s)
+            List<GroovyTemplate.VariableMetadata> portVars = getPortVariables(service.getId());
+            removeIngressPath(service, portVars);
 
             // 2. Delete HPA
             kubernetesClient.autoscaling().v2().horizontalPodAutoscalers()
@@ -168,7 +177,12 @@ public class KubernetesDeployerService implements KubernetesDeployer {
         }
     }
 
-    private void addIngressPath(ServiceEntity service, String serviceName) {
+    // -------------------------------------------------------------------------
+    // Ingress helpers
+    // -------------------------------------------------------------------------
+
+    private void addIngressPath(ServiceEntity service, String serviceName,
+                                List<GroovyTemplate.VariableMetadata> portVars) {
         String path = service.getRoutablePath();
         if (path == null) {
             log.warn("Service has no path, skipping ingress configuration");
@@ -186,29 +200,34 @@ public class KubernetesDeployerService implements KubernetesDeployer {
                 ingress = createBaseIngress();
             }
 
-            // Add new path
-            HTTPIngressPath newPath = new io.fabric8.kubernetes.api.model.networking.v1.HTTPIngressPathBuilder()
-                    .withPath(path)
-                    .withPathType("Prefix")
-                    .withNewBackend()
-                        .withNewService()
-                            .withName(serviceName)
-                            .withNewPort()
-                                .withNumber(KubernetesConfig.ESB_CONTAINER_PORT)
-                            .endPort()
-                        .endService()
-                    .endBackend()
-                    .build();
+            // Ensure the first rule has an HTTP block with a mutable path list
+            if (ingress.getSpec().getRules() == null || ingress.getSpec().getRules().isEmpty()) {
+                ingress = createBaseIngress();
+            }
+            IngressRule rule = ingress.getSpec().getRules().get(0);
+            if (rule.getHttp() == null) {
+                rule.setHttp(new io.fabric8.kubernetes.api.model.networking.v1.HTTPIngressRuleValueBuilder()
+                        .withPaths(new ArrayList<>())
+                        .build());
+            }
 
-            // Add to existing rules
-            if (ingress.getSpec().getRules() != null && !ingress.getSpec().getRules().isEmpty()) {
-                IngressRule rule = ingress.getSpec().getRules().get(0);
-                if (rule.getHttp() == null) {
-                    rule.setHttp(new io.fabric8.kubernetes.api.model.networking.v1.HTTPIngressRuleValueBuilder()
-                            .withPaths(new ArrayList<>())
-                            .build());
+            // Add primary service path (existing 8080 logic)
+            rule.getHttp().getPaths().add(buildIngressPath(path, serviceName, KubernetesConfig.ESB_CONTAINER_PORT));
+
+            // Add an additional Ingress path for each PORT variable that has both a path and a
+            // parseable defaultValue
+            if (portVars != null) {
+                for (GroovyTemplate.VariableMetadata portVar : portVars) {
+                    if (portVar.getPath() == null || portVar.getPath().isBlank()) {
+                        continue;
+                    }
+                    Integer portNum = parsePort(portVar.getDefaultValue());
+                    if (portNum == null) {
+                        continue;
+                    }
+                    rule.getHttp().getPaths().add(buildIngressPath(portVar.getPath(), serviceName, portNum));
+                    log.info("Added ingress path for PORT var '{}': {} -> :{}", portVar.getName(), portVar.getPath(), portNum);
                 }
-                rule.getHttp().getPaths().add(newPath);
             }
 
             kubernetesClient.network().v1().ingresses()
@@ -224,7 +243,7 @@ public class KubernetesDeployerService implements KubernetesDeployer {
         }
     }
 
-    private void removeIngressPath(ServiceEntity service) {
+    private void removeIngressPath(ServiceEntity service, List<GroovyTemplate.VariableMetadata> portVars) {
         String path = service.getRoutablePath();
         if (path == null) {
             return;
@@ -240,10 +259,20 @@ public class KubernetesDeployerService implements KubernetesDeployer {
                 return;
             }
 
-            // Remove path
+            // Collect all paths to remove: primary path + PORT variable paths
+            List<String> pathsToRemove = new ArrayList<>();
+            pathsToRemove.add(path);
+            if (portVars != null) {
+                for (GroovyTemplate.VariableMetadata portVar : portVars) {
+                    if (portVar.getPath() != null && !portVar.getPath().isBlank()) {
+                        pathsToRemove.add(portVar.getPath());
+                    }
+                }
+            }
+
             for (IngressRule rule : ingress.getSpec().getRules()) {
                 if (rule.getHttp() != null && rule.getHttp().getPaths() != null) {
-                    rule.getHttp().getPaths().removeIf(p -> path.equals(p.getPath()));
+                    rule.getHttp().getPaths().removeIf(p -> pathsToRemove.contains(p.getPath()));
                 }
             }
 
@@ -252,11 +281,26 @@ public class KubernetesDeployerService implements KubernetesDeployer {
                     .resource(ingress)
                     .update();
 
-            log.info("Removed ingress path: {}", path);
+            log.info("Removed ingress path(s): {}", pathsToRemove);
 
         } catch (Exception e) {
             log.error("Error removing ingress path: {}", e.getMessage());
         }
+    }
+
+    private HTTPIngressPath buildIngressPath(String path, String serviceName, int port) {
+        return new io.fabric8.kubernetes.api.model.networking.v1.HTTPIngressPathBuilder()
+                .withPath(path)
+                .withPathType("Prefix")
+                .withNewBackend()
+                    .withNewService()
+                        .withName(serviceName)
+                        .withNewPort()
+                            .withNumber(port)
+                        .endPort()
+                    .endService()
+                .endBackend()
+                .build();
     }
 
     private Ingress createBaseIngress() {
@@ -274,5 +318,34 @@ public class KubernetesDeployerService implements KubernetesDeployer {
                     .endRule()
                 .endSpec()
                 .build();
+    }
+
+    // -------------------------------------------------------------------------
+    // PORT variable resolution
+    // -------------------------------------------------------------------------
+
+    /**
+     * Returns the PORT-typed {@link GroovyTemplate.VariableMetadata} entries for the given
+     * service, or an empty list if no GroovyConfig / template is associated.
+     */
+    private List<GroovyTemplate.VariableMetadata> getPortVariables(Long serviceId) {
+        return groovyConfigRepository.findByServiceId(serviceId)
+                .map(c -> c.getGroovyTemplate().getVariables())
+                .orElse(List.of())
+                .stream()
+                .filter(v -> VariableType.PORT == v.getType())
+                .collect(Collectors.toList());
+    }
+
+    /** Returns the parsed port number, or {@code null} if the value is absent or not an integer. */
+    private Integer parsePort(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }

@@ -47,6 +47,10 @@ public class UpdateComponentTemplateHandler {
             template.setConfigSchema(command.getConfigSchema());
         }
 
+        if (command.getGroovyCode() != null) {
+            template.setGroovyCode(command.getGroovyCode());
+        }
+
         template = repository.save(template);
 
         log.info("Updated component template: {} (ID: {})", template.getName(), template.getId());

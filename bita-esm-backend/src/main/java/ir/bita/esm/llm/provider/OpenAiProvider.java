@@ -106,6 +106,9 @@ public class OpenAiProvider implements LlmProvider {
                     if (m.getToolCallId() != null) {
                         msg.put("tool_call_id", m.getToolCallId());
                     }
+                    if (m.getName() != null) {
+                        msg.put("name", m.getName());
+                    }
                     return msg;
                 })
                 .collect(Collectors.toList());

@@ -1,0 +1,22 @@
+{
+  "id": "c10",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 104,
+    "templateName": "soap-ws-security",
+    "serviceName": "iban-validate",
+    "serviceVersion": "v1",
+    "collectionName": "tax",
+    "variables": {
+      "pvAddress": "http://10.30.10.80:8080/ws/iban-validate",
+      "gwPort": "18010",
+      "gwPath": "/esb/tax/iban-validate/v1",
+      "pvWsdlUri": "http://10.30.10.80:8080/ws/iban-validate?wsdl",
+      "securityPolicy": "Timestamp+Signature",
+      "signaturePropsFile": "iban-validate-sig.properties",
+      "truststorePropsFile": "iban-validate-trust.properties"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «اعتبارسنجی شبا» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان امور مالیاتی در نظر دارد سرویس «اعتبارسنجی شبا» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس SOAP است و طبق الزامات امنیتی، پیام‌ها باید با WS-Security 1.1 امضا شوند (همراه با Timestamp)؛ رمزنگاری لازم نیست.\n\nمشخصات فنی:\n- نام فنی سرویس iban-validate، نسخهٔ v1، و مجموعهٔ tax است.\n- آدرس سرویس: http://10.30.10.80:8080/ws/iban-validate\n- آدرس WSDL: http://10.30.10.80:8080/ws/iban-validate?wsdl\n- پورت اختصاصی گذرگاه: 18010\n- مسیر انتشار روی گذرگاه: /esb/tax/iban-validate/v1\n- فایل properties امضا: iban-validate-sig.properties\n- فایل properties مخزن اعتماد (truststore): iban-validate-trust.properties\n\nبا تشکر\nواحد فناوری اطلاعات سازمان امور مالیاتی"
+}

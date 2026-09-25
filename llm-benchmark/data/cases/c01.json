@@ -1,0 +1,18 @@
+{
+  "id": "c01",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 101,
+    "templateName": "rest-proxy",
+    "serviceName": "identity-inquiry",
+    "serviceVersion": "v1",
+    "collectionName": "mellat",
+    "variables": {
+      "pvAddress": "http://10.21.1.17:8080/api/identity-inquiry",
+      "gwPort": "18001",
+      "gwPath": "/esb/mellat/identity-inquiry/v1"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام هویت» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک ملت در نظر دارد سرویس «استعلام هویت» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین یک API مبتنی بر REST/JSON است که باید بدون تغییر از طریق بیتا منتشر شود.\n\nمشخصات فنی:\n- نام فنی سرویس identity-inquiry، نسخهٔ v1، و مجموعهٔ mellat است.\n- آدرس سرویس: http://10.21.1.17:8080/api/identity-inquiry\n- پورت اختصاصی گذرگاه: 18001\n- مسیر انتشار روی گذرگاه: /esb/mellat/identity-inquiry/v1\n\nبا تشکر\nواحد فناوری اطلاعات بانک ملت"
+}

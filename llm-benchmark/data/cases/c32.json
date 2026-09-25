@@ -1,0 +1,19 @@
+{
+  "id": "c32",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 102,
+    "templateName": "rest-proxy-rate-limit",
+    "serviceName": "gas-bill",
+    "serviceVersion": "v2",
+    "collectionName": "gomrok",
+    "variables": {
+      "pvAddress": "http://10.22.32.34:8080/api/gas-bill",
+      "gwPort": "18032",
+      "gwPath": "/esb/gomrok/gas-bill/v2",
+      "rateLimitPerMinute": "300"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام قبض گاز» روی گذرگاه بیتا\n\nبا سلام و احترام،\nگمرک ایران در نظر دارد سرویس «استعلام قبض گاز» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nمستندات نسخهٔ قدیمی سرویس در http://docs.legacy.local/old-api موجود است که دیگر معتبر نیست و نباید استفاده شود.\nAPI ما REST است و ظرفیت محدودی دارد؛ لطفاً سقف 300 فراخوانی در دقیقه برای هر سازمان مصرف‌کننده اعمال شود.\n\nنام فنی سرویس gas-bill، نسخهٔ v2، و مجموعهٔ gomrok است.\nمسیر انتشار روی گذرگاه /esb/gomrok/gas-bill/v2 است.\nبرای هماهنگی با کارشناس فنی ما با شمارهٔ ۰۲۱-۸۸۷۷۶۶۵۵ تماس بگیرید.\nپورت ۱۸۰۳۲ برای این سرویس روی گذرگاه رزرو شده است.\nآدرس سرویس http://10.22.32.34:8080/api/gas-bill است.\n\nبا تشکر\nواحد فناوری اطلاعات گمرک ایران"
+}

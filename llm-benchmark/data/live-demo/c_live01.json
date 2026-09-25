@@ -1,0 +1,18 @@
+{
+  "id": "c_live01",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "document": "موضوع: درخواست راه‌اندازی سرویس «اکو دمو» روی گذرگاه بیتا\n\nبا سلام و احترام،\nواحد آزمایشگاه بیتا در نظر دارد سرویس «اکو دمو» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین یک API مبتنی بر REST/JSON است که باید بدون تغییر از طریق بیتا منتشر شود.\n\nمشخصات فنی:\n- نام فنی سرویس echo-proxy، نسخهٔ v1، و مجموعهٔ demo است.\n- آدرس سرویس: http://127.0.0.1:29500/api\n- پورت اختصاصی گذرگاه: 29501\n- مسیر انتشار روی گذرگاه: /esb/demo/echo-proxy/v1\n\nبا تشکر\nواحد آزمایشگاه بیتا",
+  "expected": {
+    "templateId": 101,
+    "templateName": "rest-proxy",
+    "serviceName": "echo-proxy",
+    "serviceVersion": "v1",
+    "collectionName": "demo",
+    "variables": {
+      "pvAddress": "http://127.0.0.1:29500/api",
+      "gwPort": "29501",
+      "gwPath": "/esb/demo/echo-proxy/v1"
+    }
+  }
+}

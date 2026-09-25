@@ -1,0 +1,17 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="org.apache.wss4j.dom.processor.EncryptedKeyProcessor" level="DEBUG"/>
+    <logger name="org.apache.wss4j.common.crypto.Merlin" level="DEBUG"/>
+    <logger name="org.apache.wss4j.dom.str.EncryptedKeySTRParser" level="DEBUG"/>
+
+</configuration>

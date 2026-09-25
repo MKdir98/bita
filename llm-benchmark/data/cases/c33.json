@@ -1,0 +1,19 @@
+{
+  "id": "c33",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 103,
+    "templateName": "soap-passthrough",
+    "serviceName": "certificate-issue",
+    "serviceVersion": "v1",
+    "collectionName": "sepah",
+    "variables": {
+      "pvAddress": "http://10.23.33.41:8080/ws/certificate-issue",
+      "gwPort": "18033",
+      "gwPath": "/esb/sepah/certificate-issue/v1",
+      "pvWsdlUri": "http://10.23.33.41:8080/ws/certificate-issue?wsdl"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «صدور گواهی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک سپه در نظر دارد سرویس «صدور گواهی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین سرویس در سال گذشته به‌صورت آزمایشی برای سه سازمان راه‌اندازی شده بود و اکنون قرار است رسمی شود.\nسرویس از نوع SOAP است و نیازی به امنیت سطح پیام (WS-Security) ندارد.\n\nنام فنی سرویس certificate-issue، نسخهٔ v1، و مجموعهٔ sepah است.\nآدرس سرویس http://10.23.33.41:8080/ws/certificate-issue است.\nسطح توافق خدمت (SLA) این سرویس ۹۹.۵ درصد در ماه تعریف شده است.\nآدرس WSDL http://10.23.33.41:8080/ws/certificate-issue?wsdl است.\nپورت ۱۸۰۳۳ برای این سرویس روی گذرگاه رزرو شده است.\nمسیر انتشار روی گذرگاه /esb/sepah/certificate-issue/v1 است.\n\nبا تشکر\nواحد فناوری اطلاعات بانک سپه"
+}

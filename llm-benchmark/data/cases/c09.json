@@ -1,0 +1,19 @@
+{
+  "id": "c09",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 103,
+    "templateName": "soap-passthrough",
+    "serviceName": "certificate-issue",
+    "serviceVersion": "v1",
+    "collectionName": "tamin",
+    "variables": {
+      "pvAddress": "http://10.29.9.73:8080/ws/certificate-issue",
+      "gwPort": "18009",
+      "gwPath": "/esb/tamin/certificate-issue/v1",
+      "pvWsdlUri": "http://10.29.9.73:8080/ws/certificate-issue?wsdl"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «صدور گواهی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان تأمین اجتماعی در نظر دارد سرویس «صدور گواهی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس از نوع SOAP است و نیازی به امنیت سطح پیام (WS-Security) ندارد.\n\nمشخصات فنی:\n- نام فنی سرویس certificate-issue، نسخهٔ v1، و مجموعهٔ tamin است.\n- آدرس سرویس: http://10.29.9.73:8080/ws/certificate-issue\n- آدرس WSDL: http://10.29.9.73:8080/ws/certificate-issue?wsdl\n- پورت اختصاصی گذرگاه: 18009\n- مسیر انتشار روی گذرگاه: /esb/tamin/certificate-issue/v1\n\nبا تشکر\nواحد فناوری اطلاعات سازمان تأمین اجتماعی"
+}

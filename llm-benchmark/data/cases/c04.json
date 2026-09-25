@@ -1,0 +1,22 @@
+{
+  "id": "c04",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 104,
+    "templateName": "soap-ws-security",
+    "serviceName": "parcel-tracking",
+    "serviceVersion": "v1",
+    "collectionName": "behzisti",
+    "variables": {
+      "pvAddress": "http://10.24.4.38:8080/ws/parcel-tracking",
+      "gwPort": "18004",
+      "gwPath": "/esb/behzisti/parcel-tracking/v1",
+      "pvWsdlUri": "http://10.24.4.38:8080/ws/parcel-tracking?wsdl",
+      "securityPolicy": "Timestamp+Signature+Encryption",
+      "signaturePropsFile": "parcel-tracking-sig.properties",
+      "truststorePropsFile": "parcel-tracking-trust.properties"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «رهگیری مرسوله» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان بهزیستی در نظر دارد سرویس «رهگیری مرسوله» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس SOAP است و طبق الزامات امنیتی، پیام‌ها باید با WS-Security 1.1 هم امضا و هم رمزنگاری شوند (همراه با Timestamp).\n\nمشخصات فنی:\n- نام فنی سرویس parcel-tracking، نسخهٔ v1، و مجموعهٔ behzisti است.\n- آدرس سرویس: http://10.24.4.38:8080/ws/parcel-tracking\n- آدرس WSDL: http://10.24.4.38:8080/ws/parcel-tracking?wsdl\n- پورت اختصاصی گذرگاه: 18004\n- مسیر انتشار روی گذرگاه: /esb/behzisti/parcel-tracking/v1\n- فایل properties امضا: parcel-tracking-sig.properties\n- فایل properties مخزن اعتماد (truststore): parcel-tracking-trust.properties\n\nبا تشکر\nواحد فناوری اطلاعات سازمان بهزیستی"
+}

@@ -1,0 +1,42 @@
+{
+  "seed": 1405,
+  "count": 60,
+  "byLevel": {
+    "L1": 20,
+    "L2": 15,
+    "L3": 10,
+    "L4": 5,
+    "L5": 10
+  },
+  "byTemplate": {
+    "rest-proxy": 9,
+    "rest-proxy-rate-limit": 9,
+    "soap-passthrough": 8,
+    "soap-ws-security": 8,
+    "rest-to-soap-bridge": 8,
+    "soap-backend-basic-auth": 8
+  },
+  "byCapability": {
+    "bearer-token": 2,
+    "json-to-xml": 2,
+    "get-only": 2,
+    "fan-out": 2,
+    "timeout": 2
+  },
+  "l5Split": {
+    "dev": [
+      "c51",
+      "c52",
+      "c53",
+      "c54",
+      "c55"
+    ],
+    "test": [
+      "c56",
+      "c57",
+      "c58",
+      "c59",
+      "c60"
+    ]
+  }
+}

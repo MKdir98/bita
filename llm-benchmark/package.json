@@ -1,0 +1,15 @@
+{
+  "name": "bita-llm-benchmark",
+  "private": true,
+  "type": "module",
+  "description": "Service-definition accuracy benchmark for the BITA ESM LLM assistant",
+  "scripts": {
+    "generate": "node src/generate.ts",
+    "bench": "node src/run.ts",
+    "report": "node src/report.ts"
+  },
+  "dependencies": {
+    "openai": "^4.77.0"
+  },
+  "engines": { "node": ">=22.18" }
+}

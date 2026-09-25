@@ -1,0 +1,22 @@
+{
+  "id": "c34",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 104,
+    "templateName": "soap-ws-security",
+    "serviceName": "iban-validate",
+    "serviceVersion": "v2",
+    "collectionName": "behzisti",
+    "variables": {
+      "pvAddress": "http://10.24.34.48:8080/ws/iban-validate",
+      "gwPort": "18034",
+      "gwPath": "/esb/behzisti/iban-validate/v2",
+      "pvWsdlUri": "http://10.24.34.48:8080/ws/iban-validate?wsdl",
+      "securityPolicy": "Timestamp+Signature+Encryption",
+      "signaturePropsFile": "iban-validate-sig.properties",
+      "truststorePropsFile": "iban-validate-trust.properties"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «اعتبارسنجی شبا» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان بهزیستی در نظر دارد سرویس «اعتبارسنجی شبا» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nاین سرویس در سال گذشته به‌صورت آزمایشی برای سه سازمان راه‌اندازی شده بود و اکنون قرار است رسمی شود.\nبه‌دلیل حساسیت داده، پیام‌های این وب‌سرویس SOAP باید طبق WS-Security 1.1 امضا، رمزنگاری و دارای Timestamp باشند.\n\nنام فنی سرویس iban-validate، نسخهٔ v2، و مجموعهٔ behzisti است.\nآدرس سرویس http://10.24.34.48:8080/ws/iban-validate است.\nبرای هماهنگی با کارشناس فنی ما با شمارهٔ ۰۲۱-۸۸۷۷۶۶۵۵ تماس بگیرید.\nمسیر انتشار روی گذرگاه /esb/behzisti/iban-validate/v2 است.\nفایل properties مخزن اعتماد (truststore) iban-validate-trust.properties است.\nفایل properties امضا iban-validate-sig.properties است.\nآدرس WSDL http://10.24.34.48:8080/ws/iban-validate?wsdl است.\nپورت ۱۸۰۳۴ برای این سرویس روی گذرگاه رزرو شده است.\n\nبا تشکر\nواحد فناوری اطلاعات سازمان بهزیستی"
+}

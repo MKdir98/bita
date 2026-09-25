@@ -1,0 +1,20 @@
+{
+  "id": "c23",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 105,
+    "templateName": "rest-to-soap-bridge",
+    "serviceName": "insurance-status",
+    "serviceVersion": "v2",
+    "collectionName": "sepah",
+    "variables": {
+      "pvAddress": "http://10.43.23.171:8080/ws/insurance-status",
+      "gwPort": "18023",
+      "gwPath": "/esb/sepah/insurance-status/v2",
+      "pvWsdlUri": "http://10.43.23.171:8080/ws/insurance-status?wsdl",
+      "soapOperation": "GetInsuranceStatus"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام وضعیت بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک سپه در نظر دارد سرویس «استعلام وضعیت بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nمستندات نسخهٔ قدیمی سرویس در http://docs.legacy.local/old-api موجود است که دیگر معتبر نیست و نباید استفاده شود.\nکلاینت‌ها درخواست JSON می‌فرستند ولی پیاده‌سازی ما وب‌سرویس SOAP است؛ لطفاً درخواست‌ها به متد GetInsuranceStatus نگاشت شوند.\n\nنام فنی سرویس insurance-status، نسخهٔ v2، و مجموعهٔ sepah است.\nمسیر انتشار روی گذرگاه /esb/sepah/insurance-status/v2 است.\nبرای هماهنگی با کارشناس فنی ما با شمارهٔ ۰۲۱-۸۸۷۷۶۶۵۵ تماس بگیرید.\nپورت ۱۸۰۲۳ برای این سرویس روی گذرگاه رزرو شده است.\nآدرس WSDL http://10.43.23.171:8080/ws/insurance-status?wsdl است.\nآدرس سرویس http://10.43.23.171:8080/ws/insurance-status است.\n\nبا تشکر\nواحد فناوری اطلاعات بانک سپه"
+}

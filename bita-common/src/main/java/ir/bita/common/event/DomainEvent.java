@@ -1,5 +1,6 @@
 package ir.bita.common.event;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
@@ -86,16 +87,22 @@ public abstract class DomainEvent {
 
     /**
      * Returns the Kafka topic for this event type.
+     * Derived from subclass fields, so it is read-only on deserialization.
      */
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public abstract String getTopic();
 
     /**
      * Returns the partition key for Kafka (for ordering).
+     * Derived from subclass fields, so it is read-only on deserialization.
      */
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public abstract String getPartitionKey();
 
     /**
      * Returns the aggregate ID for this event.
+     * Derived from subclass fields, so it is read-only on deserialization.
      */
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public abstract String getAggregateId();
 }

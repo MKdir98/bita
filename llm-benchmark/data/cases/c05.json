@@ -1,0 +1,20 @@
+{
+  "id": "c05",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 105,
+    "templateName": "rest-to-soap-bridge",
+    "serviceName": "postal-code",
+    "serviceVersion": "v1",
+    "collectionName": "sabt",
+    "variables": {
+      "pvAddress": "http://10.25.5.45:8080/ws/postal-code",
+      "gwPort": "18005",
+      "gwPath": "/esb/sabt/postal-code/v1",
+      "pvWsdlUri": "http://10.25.5.45:8080/ws/postal-code?wsdl",
+      "soapOperation": "GetPostalCode"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام کد پستی» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان ثبت احوال در نظر دارد سرویس «استعلام کد پستی» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسامانه‌های مصرف‌کننده فقط REST/JSON پشتیبانی می‌کنند، اما سرویس ما SOAP است؛ گذرگاه باید درخواست REST را به operation «GetPostalCode» تبدیل کند.\n\nمشخصات فنی:\n- نام فنی سرویس postal-code، نسخهٔ v1، و مجموعهٔ sabt است.\n- آدرس سرویس: http://10.25.5.45:8080/ws/postal-code\n- آدرس WSDL: http://10.25.5.45:8080/ws/postal-code?wsdl\n- پورت اختصاصی گذرگاه: 18005\n- مسیر انتشار روی گذرگاه: /esb/sabt/postal-code/v1\n\nبا تشکر\nواحد فناوری اطلاعات سازمان ثبت احوال"
+}

@@ -193,14 +193,11 @@ public class EventConsumer {
         log.debug("Processing event: {} from {}", eventType, topic);
 
         switch (eventType) {
-            // Route events
-            case "ROUTE_CREATED", "ROUTE_UPDATED" -> {
-                Long routeId = event.get("routeId").asLong();
-                syncService.syncRoute(routeId);
-            }
-            case "ROUTE_DELETED", "ROUTE_DEACTIVATED" -> {
-                Long routeId = event.get("routeId").asLong();
-                syncService.removeRoute(routeId);
+            // Groovy script changed — hot-reload routes
+            case "GROOVY_CONFIG_UPDATED", "ROUTE_CREATED", "ROUTE_UPDATED",
+                 "ROUTE_DELETED", "ROUTE_DEACTIVATED" -> {
+                log.info("Groovy config changed ({}), triggering hot-reload", eventType);
+                syncService.reload();
             }
 
             // Access events

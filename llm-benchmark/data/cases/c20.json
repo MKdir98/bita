@@ -1,0 +1,19 @@
+{
+  "id": "c20",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 102,
+    "templateName": "rest-proxy-rate-limit",
+    "serviceName": "gas-bill",
+    "serviceVersion": "v1",
+    "collectionName": "tax",
+    "variables": {
+      "pvAddress": "http://10.40.20.150:8080/api/gas-bill",
+      "gwPort": "18020",
+      "gwPath": "/esb/tax/gas-bill/v1",
+      "rateLimitPerMinute": "60"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام قبض گاز» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان امور مالیاتی در نظر دارد سرویس «استعلام قبض گاز» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس از نوع REST است. برای جلوگیری از فشار بار، هر کلاینت حداکثر 60 درخواست در دقیقه مجاز است.\n\nمشخصات فنی:\n- نام فنی سرویس gas-bill، نسخهٔ v1، و مجموعهٔ tax است.\n- آدرس سرویس: http://10.40.20.150:8080/api/gas-bill\n- پورت اختصاصی گذرگاه: 18020\n- مسیر انتشار روی گذرگاه: /esb/tax/gas-bill/v1\n\nبا تشکر\nواحد فناوری اطلاعات سازمان امور مالیاتی"
+}

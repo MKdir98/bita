@@ -34,4 +34,6 @@ public class UpdateComponentTemplateCommand {
     private String className;
 
     private Map<String, Object> configSchema;
+
+    private String groovyCode;
 }

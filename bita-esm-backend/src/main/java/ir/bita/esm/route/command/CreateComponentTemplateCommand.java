@@ -37,4 +37,6 @@ public class CreateComponentTemplateCommand {
 
     @Size(max = 50, message = "Category cannot exceed 50 characters")
     private String category;
+
+    private String groovyCode;
 }

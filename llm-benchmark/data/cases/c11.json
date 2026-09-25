@@ -1,0 +1,20 @@
+{
+  "id": "c11",
+  "level": "L1",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 105,
+    "templateName": "rest-to-soap-bridge",
+    "serviceName": "insurance-status",
+    "serviceVersion": "v1",
+    "collectionName": "mellat",
+    "variables": {
+      "pvAddress": "http://10.31.11.87:8080/ws/insurance-status",
+      "gwPort": "18011",
+      "gwPath": "/esb/mellat/insurance-status/v1",
+      "pvWsdlUri": "http://10.31.11.87:8080/ws/insurance-status?wsdl",
+      "soapOperation": "GetInsuranceStatus"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام وضعیت بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبانک ملت در نظر دارد سرویس «استعلام وضعیت بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nکلاینت‌ها درخواست JSON می‌فرستند ولی پیاده‌سازی ما وب‌سرویس SOAP است؛ لطفاً درخواست‌ها به متد GetInsuranceStatus نگاشت شوند.\n\nمشخصات فنی:\n- نام فنی سرویس insurance-status، نسخهٔ v1، و مجموعهٔ mellat است.\n- آدرس سرویس: http://10.31.11.87:8080/ws/insurance-status\n- آدرس WSDL: http://10.31.11.87:8080/ws/insurance-status?wsdl\n- پورت اختصاصی گذرگاه: 18011\n- مسیر انتشار روی گذرگاه: /esb/mellat/insurance-status/v1\n\nبا تشکر\nواحد فناوری اطلاعات بانک ملت"
+}

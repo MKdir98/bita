@@ -1,0 +1,23 @@
+{
+  "id": "c36",
+  "level": "L3",
+  "expectedBehavior": "ask",
+  "missingVariable": "gwPort",
+  "expected": {
+    "templateId": 106,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "fund-transfer",
+    "serviceVersion": "v1",
+    "collectionName": "post",
+    "variables": {
+      "pvAddress": "http://10.26.36.62:8080/ws/fund-transfer",
+      "gwPort": "18036",
+      "gwPath": "/esb/post/fund-transfer/v1",
+      "pvWsdlUri": "http://10.26.36.62:8080/ws/fund-transfer?wsdl",
+      "backendUsername": "post_esb",
+      "backendPassword": "Pw2332!x"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «انتقال وجه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nشرکت ملی پست در نظر دارد سرویس «انتقال وجه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nدسترسی به وب‌سرویس SOAP ما نیازمند احراز هویت Basic است (کاربر: post_esb، رمز: Pw2332!x)؛ این اعتبارنامه را گذرگاه هنگام فراخوانی سرویس ما ارسال کند.\n\nمشخصات فنی:\n- نام فنی سرویس fund-transfer، نسخهٔ v1، و مجموعهٔ post است.\n- آدرس سرویس: http://10.26.36.62:8080/ws/fund-transfer\n- آدرس WSDL: http://10.26.36.62:8080/ws/fund-transfer?wsdl\n- مسیر انتشار روی گذرگاه: /esb/post/fund-transfer/v1\n\nبا تشکر\nواحد فناوری اطلاعات شرکت ملی پست",
+  "followUp": "پورت اختصاصی گذرگاه 18036 است."
+}

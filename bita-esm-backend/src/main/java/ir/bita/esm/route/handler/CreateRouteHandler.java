@@ -101,7 +101,7 @@ public class CreateRouteHandler {
         if (config.getTemplateId() != null) {
             template = endpointTemplateRepository.findByIdAndDeletedFalse(config.getTemplateId())
                     .orElseThrow(() -> new IllegalArgumentException("Endpoint template not found"));
-            
+
             // Resolve URI from template camel_yaml
             if (config.getConfig() != null && template.getCamelYaml() != null) {
                 String resolved = templateResolver.extractAndResolveUriFromCamelYaml(template.getCamelYaml(), config.getConfig());

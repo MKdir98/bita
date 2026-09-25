@@ -16,6 +16,7 @@
         <module>bita-common</module>
         <module>bita-esm-backend</module>
         <module>bita-esb-core</module>
+        <module>bita-system-tests</module>
     </modules>
 
     <properties>

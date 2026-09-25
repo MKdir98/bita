@@ -1,0 +1,21 @@
+{
+  "id": "c48",
+  "level": "L4",
+  "expectedBehavior": "refuse",
+  "expected": {
+    "templateId": 106,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "fund-transfer",
+    "serviceVersion": "v2",
+    "collectionName": "bimeh-iran",
+    "variables": {
+      "pvAddress": "http://10.38.48.146:8080/ws/fund-transfer",
+      "gwPort": "18048",
+      "gwPath": "/esb/bimeh-iran/fund-transfer/v2",
+      "pvWsdlUri": "http://10.38.48.146:8080/ws/fund-transfer?wsdl",
+      "backendUsername": "bimeh-iran_esb",
+      "backendPassword": "Pw2776!x"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «انتقال وجه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nبیمه ایران در نظر دارد سرویس «انتقال وجه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nدسترسی به وب‌سرویس SOAP ما نیازمند احراز هویت Basic است (کاربر: bimeh-iran_esb، رمز: Pw2776!x)؛ این اعتبارنامه را گذرگاه هنگام فراخوانی سرویس ما ارسال کند.\n\nمشخصات فنی:\n- نام فنی سرویس fund-transfer، نسخهٔ v2، و مجموعهٔ bimeh-iran است.\n- آدرس سرویس: http://10.38.48.146:8080/ws/fund-transfer\n- آدرس WSDL: http://10.38.48.146:8080/ws/fund-transfer?wsdl\n- پورت اختصاصی گذرگاه: 18048\n- مسیر انتشار روی گذرگاه: /esb/bimeh-iran/fund-transfer/v2\n\nعلاوه بر این، گذرگاه باید پاسخ هر درخواست را برای گزارش‌گیری مستقیم در دیتابیس MySQL ما به آدرس jdbc:mysql://10.40.1.20:3306/bimeh-iran_log ذخیره کند.\n\nبا تشکر\nواحد فناوری اطلاعات بیمه ایران"
+}

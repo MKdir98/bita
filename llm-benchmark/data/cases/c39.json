@@ -1,0 +1,21 @@
+{
+  "id": "c39",
+  "level": "L3",
+  "expectedBehavior": "ask",
+  "missingVariable": "gwPort",
+  "expected": {
+    "templateId": 103,
+    "templateName": "soap-passthrough",
+    "serviceName": "insurance-history",
+    "serviceVersion": "v1",
+    "collectionName": "tamin",
+    "variables": {
+      "pvAddress": "http://10.29.39.83:8080/ws/insurance-history",
+      "gwPort": "18039",
+      "gwPath": "/esb/tamin/insurance-history/v1",
+      "pvWsdlUri": "http://10.29.39.83:8080/ws/insurance-history?wsdl"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام سابقهٔ بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان تأمین اجتماعی در نظر دارد سرویس «استعلام سابقهٔ بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nسرویس از نوع SOAP است و نیازی به امنیت سطح پیام (WS-Security) ندارد.\n\nمشخصات فنی:\n- نام فنی سرویس insurance-history، نسخهٔ v1، و مجموعهٔ tamin است.\n- آدرس سرویس: http://10.29.39.83:8080/ws/insurance-history\n- آدرس WSDL: http://10.29.39.83:8080/ws/insurance-history?wsdl\n- مسیر انتشار روی گذرگاه: /esb/tamin/insurance-history/v1\n\nبا تشکر\nواحد فناوری اطلاعات سازمان تأمین اجتماعی",
+  "followUp": "پورت اختصاصی گذرگاه 18039 است."
+}

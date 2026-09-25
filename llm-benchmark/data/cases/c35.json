@@ -1,0 +1,20 @@
+{
+  "id": "c35",
+  "level": "L2",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 105,
+    "templateName": "rest-to-soap-bridge",
+    "serviceName": "insurance-status",
+    "serviceVersion": "v1",
+    "collectionName": "sabt",
+    "variables": {
+      "pvAddress": "http://10.25.35.55:8080/ws/insurance-status",
+      "gwPort": "18035",
+      "gwPath": "/esb/sabt/insurance-status/v1",
+      "pvWsdlUri": "http://10.25.35.55:8080/ws/insurance-status?wsdl",
+      "soapOperation": "GetInsuranceStatus"
+    }
+  },
+  "document": "موضوع: درخواست راه‌اندازی سرویس «استعلام وضعیت بیمه» روی گذرگاه بیتا\n\nبا سلام و احترام،\nسازمان ثبت احوال در نظر دارد سرویس «استعلام وضعیت بیمه» را از طریق گذرگاه خدمات سازمانی بیتا در اختیار سازمان‌های متقاضی قرار دهد.\nمستندات نسخهٔ قدیمی سرویس در http://docs.legacy.local/old-api موجود است که دیگر معتبر نیست و نباید استفاده شود.\nسامانه‌های مصرف‌کننده فقط REST/JSON پشتیبانی می‌کنند، اما سرویس ما SOAP است؛ گذرگاه باید درخواست REST را به operation «GetInsuranceStatus» تبدیل کند.\n\nنام فنی سرویس insurance-status، نسخهٔ v1، و مجموعهٔ sabt است.\nپورت ۱۸۰۳۵ برای این سرویس روی گذرگاه رزرو شده است.\nسرور آزمایشی ما روی 10.99.0.5:9090 است که فقط برای تست داخلی است و نباید منتشر شود.\nآدرس WSDL http://10.25.35.55:8080/ws/insurance-status?wsdl است.\nمسیر انتشار روی گذرگاه /esb/sabt/insurance-status/v1 است.\nآدرس سرویس http://10.25.35.55:8080/ws/insurance-status است.\n\nبا تشکر\nواحد فناوری اطلاعات سازمان ثبت احوال"
+}

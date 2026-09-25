@@ -7,9 +7,7 @@ import ir.bita.esm.sync.service.SyncDataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,13 +38,6 @@ public class InternalSyncController {
         return ResponseEntity.ok(syncDataService.getAllServicesWithRoutes());
     }
 
-    @GetMapping("/routes")
-    @Operation(summary = "Get all routes with files", description = "For ESB core route definitions")
-    public ResponseEntity<List<RouteSyncDto>> getRoutes() {
-        log.debug("Internal sync request: routes");
-        return ResponseEntity.ok(syncDataService.getAllRoutes());
-    }
-
     @GetMapping("/access")
     @Operation(summary = "Get all access rules", description = "For ESB core access control")
     public ResponseEntity<List<AccessSyncDto>> getAccessRules() {
@@ -59,5 +50,12 @@ public class InternalSyncController {
     public ResponseEntity<FullSyncDataDto> getFullSyncData() {
         log.info("Internal sync request: full sync");
         return ResponseEntity.ok(syncDataService.getFullSyncData());
+    }
+
+    @GetMapping("/services/{serviceId}/config")
+    @Operation(summary = "Get ESB service config", description = "Groovy script, WS-Security certs, and access config for a single ESB pod")
+    public ResponseEntity<ServiceConfigDto> getServiceConfig(@PathVariable Long serviceId) {
+        log.info("Internal service config request: serviceId={}", serviceId);
+        return ResponseEntity.ok(syncDataService.getServiceConfig(serviceId));
     }
 }

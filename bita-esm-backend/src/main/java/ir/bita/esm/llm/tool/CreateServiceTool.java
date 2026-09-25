@@ -18,6 +18,7 @@ public class CreateServiceTool implements LlmTool {
 
     private final CreateServiceCollectionHandler collectionHandler;
     private final CreateServiceHandler serviceHandler;
+    private final ir.bita.esm.service.repository.ServiceCollectionRepository collectionRepository;
 
     @Override
     public String getName() {
@@ -26,7 +27,7 @@ public class CreateServiceTool implements LlmTool {
 
     @Override
     public String getDescription() {
-        return "یک سرویس جدید ایجاد می‌کند. اگر مجموعه (collection) وجود نداشته باشد، آن را هم ایجاد می‌کند.";
+        return "یک سرویس جدید ایجاد می‌کند. اگر مجموعه (collection) با این نام وجود داشته باشد، سرویس در همان ساخته می‌شود؛ وگرنه مجموعه هم ایجاد می‌شود.";
     }
 
     @Override
@@ -70,12 +71,28 @@ public class CreateServiceTool implements LlmTool {
 
         // Create collection if needed
         if (collectionId == null && arguments.containsKey("collectionName")) {
-            var collection = collectionHandler.handle(CreateServiceCollectionCommand.builder()
-                    .name((String) arguments.get("collectionName"))
-                    .basePath((String) arguments.get("collectionBasePath"))
-                    .description((String) arguments.get("description"))
-                    .build());
-            collectionId = collection.getId();
+            String collectionName = (String) arguments.get("collectionName");
+            String basePath = (String) arguments.get("collectionBasePath");
+            // collectionBasePath is documented as optional in getParametersSchema(), but
+            // service_collection.base_path is NOT NULL — a model that (correctly, per the
+            // schema) omits it hits a raw DB constraint violation instead of getting a
+            // usable service. Derive the same "/esb/<name>" convention every real template
+            // and example in this codebase already uses.
+            if (basePath == null || basePath.isBlank()) {
+                basePath = "/esb/" + collectionName;
+            }
+            // an organisation defines many services in one collection: reuse it if it exists
+            var existing = collectionRepository.findByNameAndDeletedFalse(collectionName);
+            if (existing.isPresent()) {
+                collectionId = existing.get().getId();
+            } else {
+                var collection = collectionHandler.handle(CreateServiceCollectionCommand.builder()
+                        .name(collectionName)
+                        .basePath(basePath)
+                        .description((String) arguments.get("description"))
+                        .build());
+                collectionId = collection.getId();
+            }
         }
 
         if (collectionId == null) {
