@@ -1,0 +1,19 @@
+{
+  "id": "f08",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "soap-passthrough",
+    "serviceName": "vehicle-tax",
+    "serviceVersion": "v1",
+    "collectionName": "tax-org",
+    "variables": {
+      "pvAddress": "http://10.58.1.77:8080/soap/vehicle-tax",
+      "pvWsdlUri": "http://10.58.1.77:8080/soap/vehicle-tax?wsdl",
+      "gwPort": "18108",
+      "gwPath": "/esb/tax-org/vehicle-tax/v1"
+    }
+  },
+  "document": "Dear BITA team / همکاران گرامی بیتا\nوب‌سرویس legacy عوارض خودرو که SOAP است را لطفاً publish کنید؛ security اضافه روی message لازم نیست.\n- endpoint: http://10.58.1.77:8080/soap/vehicle-tax\n- WSDL: http://10.58.1.77:8080/soap/vehicle-tax?wsdl\nسرویس vehicle-tax، نسخهٔ v1، در collection به نام tax-org. listener گذرگاه روی 18108 و path عمومی /esb/tax-org/vehicle-tax/v1 باشد."
+}

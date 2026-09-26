@@ -1,0 +1,19 @@
+{
+  "id": "f06",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "soap-passthrough",
+    "serviceName": "customs-declaration",
+    "serviceVersion": "v1",
+    "collectionName": "irica",
+    "variables": {
+      "pvAddress": "http://10.56.4.12:8080/ws/customs-declaration",
+      "pvWsdlUri": "http://10.56.4.12:8080/ws/customs-declaration?wsdl",
+      "gwPort": "18106",
+      "gwPath": "/esb/irica/customs-declaration/v1"
+    }
+  },
+  "document": "سلام. وب‌سرویس SOAP اظهار گمرکی ما (گمرک، مجموعهٔ irica) باید از طریق بیتا به سازمان‌های همکار برسد. امضا یا رمزنگاری پیام لازم ندارد.\nWSDL سرویس در http://10.56.4.12:8080/ws/customs-declaration?wsdl منتشر شده و خود endpoint همان نشانی بدون ?wsdl است.\nنام فنی customs-declaration، نسخهٔ v1. لطفاً روی درگاه ۱۸۱۰۶ و مسیر /esb/irica/customs-declaration/v1 منتشرش کنید."
+}

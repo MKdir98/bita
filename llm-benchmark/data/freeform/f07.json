@@ -1,0 +1,19 @@
+{
+  "id": "f07",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "soap-passthrough",
+    "serviceName": "pension-status",
+    "serviceVersion": "v1",
+    "collectionName": "sso",
+    "variables": {
+      "pvAddress": "http://10.57.9.30:8088/services/PensionStatus",
+      "pvWsdlUri": "http://10.57.9.30:8088/services/PensionStatus?wsdl",
+      "gwPort": "18107",
+      "gwPath": "/esb/sso/pension-status/v1"
+    }
+  },
+  "document": "صندوق بازنشستگی کشوری\nیک سرویس SOAP ساده داریم به اسم pension-status (نسخهٔ v1، مجموعهٔ sso). نقطهٔ دسترسی آن http://10.57.9.30:8088/services/PensionStatus است و WSDL را می‌شود با افزودن ?wsdl به همین نشانی گرفت.\nهیچ لایهٔ امنیتی روی پیام نمی‌خواهیم؛ فقط باید از بیتا در دسترس باشد: پورت 18107، مسیر /esb/sso/pension-status/v1."
+}

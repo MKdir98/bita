@@ -1,0 +1,19 @@
+{
+  "id": "f05",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "rest-proxy-rate-limit",
+    "serviceName": "fuel-quota",
+    "serviceVersion": "v1",
+    "collectionName": "niopdc",
+    "variables": {
+      "pvAddress": "http://10.55.6.19:8082/quota",
+      "gwPort": "18105",
+      "gwPath": "/esb/niopdc/fuel-quota/v1",
+      "rateLimitPerMinute": "240"
+    }
+  },
+  "document": "شرکت ملی پخش فرآورده‌های نفتی (مجموعهٔ niopdc) می‌خواهد سرویس REST سهمیهٔ سوخت را منتشر کند؛ اسم فنی fuel-quota و نسخه v1.\nآدرس سرویس ما: http://10.55.6.19:8082/quota\nسقف مصرف: هر مشتری در یک دقیقه نباید بیش از 240 درخواست بفرستد.\nبرای گذرگاه: پورت 18105، مسیر /esb/niopdc/fuel-quota/v1"
+}

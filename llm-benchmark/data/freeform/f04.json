@@ -1,0 +1,19 @@
+{
+  "id": "f04",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "rest-proxy-rate-limit",
+    "serviceName": "plate-inquiry",
+    "serviceVersion": "v1",
+    "collectionName": "police",
+    "variables": {
+      "pvAddress": "http://10.54.11.3:8080/api/plates",
+      "gwPort": "18104",
+      "gwPath": "/esb/police/plate-inquiry/v1",
+      "rateLimitPerMinute": "90"
+    }
+  },
+  "document": "موضوع: انتشار سرویس استعلام پلاک\nپلیس راهور یک API از نوع JSON دارد که در http://10.54.11.3:8080/api/plates در دسترس است. ظرفیت سرورمان کم است، پس گذرگاه نباید از هر سازمان بیشتر از ۹۰ فراخوانی در هر دقیقه بپذیرد.\nمشخصات در بیتا: سرویس plate-inquiry با نسخهٔ v1، مجموعهٔ police، درگاه ۱۸۱۰۴، و آدرس عمومی /esb/police/plate-inquiry/v1."
+}

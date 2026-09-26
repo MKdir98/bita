@@ -1,0 +1,20 @@
+{
+  "id": "f11",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "rest-to-soap-bridge",
+    "serviceName": "loan-balance",
+    "serviceVersion": "v1",
+    "collectionName": "bank-sepah",
+    "variables": {
+      "pvAddress": "http://10.61.2.40:8080/ws/loans",
+      "pvWsdlUri": "http://10.61.2.40:8080/ws/loans?wsdl",
+      "soapOperation": "GetLoanBalance",
+      "gwPort": "18111",
+      "gwPath": "/esb/bank-sepah/loan-balance/v1"
+    }
+  },
+  "document": "سلام\nسامانه‌های موبایلی که از این سرویس استفاده می‌کنند فقط JSON می‌فرستند، ولی پشت آن وب‌سرویس SOAP بانک سپه قرار دارد (http://10.61.2.40:8080/ws/loans و WSDL آن با ?wsdl). هر درخواست باید به عملیات GetLoanBalance همین وب‌سرویس تبدیل شود و جوابش دوباره JSON برگردد.\nسرویس loan-balance، نسخهٔ v1، مجموعهٔ bank-sepah. پورت ۱۸۱۱۱، مسیر /esb/bank-sepah/loan-balance/v1."
+}

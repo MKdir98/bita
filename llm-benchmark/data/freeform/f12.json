@@ -1,0 +1,20 @@
+{
+  "id": "f12",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "rest-to-soap-bridge",
+    "serviceName": "shipment-track",
+    "serviceVersion": "v1",
+    "collectionName": "iran-post",
+    "variables": {
+      "pvAddress": "http://10.62.5.5:8080/PostService",
+      "pvWsdlUri": "http://10.62.5.5:8080/PostService?wsdl",
+      "soapOperation": "TrackShipment",
+      "gwPort": "18112",
+      "gwPath": "/esb/iran-post/shipment-track/v1"
+    }
+  },
+  "document": "شرکت پست — نیاز به یک نمای REST\nکلاینت‌های جدید ما REST/JSON می‌فهمند و سرویس رهگیری ما SOAP است. از گذرگاه می‌خواهیم که درخواست JSON را به متد TrackShipment وب‌سرویس ما نگاشت کند.\nوب‌سرویس: http://10.62.5.5:8080/PostService (توصیف WSDL: http://10.62.5.5:8080/PostService?wsdl)\nشناسه‌ها در بیتا: shipment-track، v1، مجموعهٔ iran-post؛ گذرگاه روی 18112 با مسیر /esb/iran-post/shipment-track/v1."
+}

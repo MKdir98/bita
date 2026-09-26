@@ -1,0 +1,21 @@
+{
+  "id": "f15",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "export-permit",
+    "serviceVersion": "v1",
+    "collectionName": "tpo",
+    "variables": {
+      "pvAddress": "http://10.65.1.18:8080/ws/export-permit",
+      "pvWsdlUri": "http://10.65.1.18:8080/ws/export-permit?wsdl",
+      "gwPort": "18115",
+      "gwPath": "/esb/tpo/export-permit/v1",
+      "backendUsername": "prod_gw",
+      "backendPassword": "Kz_7731"
+    }
+  },
+  "document": "با سلام\nسازمان توسعهٔ تجارت (مجموعهٔ tpo) سرویس SOAP «مجوز صادرات» را دارد: endpoint در http://10.65.1.18:8080/ws/export-permit و WSDL در همان نشانی با ?wsdl. این سرویس Basic Auth می‌خواهد. دقت کنید: حساب test با رمز test فقط مخصوص محیط آزمایشی است؛ در بیتا از حساب عملیاتی prod_gw با رمز Kz_7731 استفاده شود.\nسرویس export-permit، نسخهٔ v1؛ روی گذرگاه پورت ۱۸۱۱۵ و مسیر /esb/tpo/export-permit/v1."
+}

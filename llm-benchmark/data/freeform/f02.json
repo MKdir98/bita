@@ -1,0 +1,18 @@
+{
+  "id": "f02",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "rest-proxy",
+    "serviceName": "permit-lookup",
+    "serviceVersion": "v1",
+    "collectionName": "tehran-municipality",
+    "variables": {
+      "pvAddress": "http://10.52.7.41:9000/v2/permits",
+      "gwPort": "18102",
+      "gwPath": "/esb/tehran-municipality/permit-lookup/v1"
+    }
+  },
+  "document": "درخواست انتشار API\n• سازمان درخواست‌دهنده: شهرداری تهران — شناسهٔ مجموعه در بیتا: tehran-municipality\n• نام سرویس: permit-lookup، نسخهٔ v1\n• نوع: JSON روی HTTP، بدون تبدیل، بدون محدودیت\n• endpoint اصلی ما: http://10.52.7.41:9000/v2/permits\n• سمت گذرگاه: پورت شنود 18102 و مسیر عمومی /esb/tehran-municipality/permit-lookup/v1"
+}

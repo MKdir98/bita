@@ -1,0 +1,21 @@
+{
+  "id": "f14",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "student-record",
+    "serviceVersion": "v1",
+    "collectionName": "saorg",
+    "variables": {
+      "pvAddress": "http://10.64.7.21:8090/StudentService",
+      "pvWsdlUri": "http://10.64.7.21:8090/StudentService?wsdl",
+      "gwPort": "18114",
+      "gwPath": "/esb/saorg/student-record/v1",
+      "backendUsername": "bita-reader",
+      "backendPassword": "Rm#2026x"
+    }
+  },
+  "document": "سازمان سنجش\nسرویس SOAP «سوابق تحصیلی» در http://10.64.7.21:8090/StudentService است (WSDL: http://10.64.7.21:8090/StudentService?wsdl). برای وصل‌شدن به ما نام کاربری bita-reader و رمز Rm#2026x لازم است و این را فقط گذرگاه باید بداند.\nاسم فنی student-record، v1، مجموعهٔ saorg؛ پورت 18114؛ مسیر انتشار /esb/saorg/student-record/v1"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "f01",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "rest-proxy",
+    "serviceName": "loan-status",
+    "serviceVersion": "v1",
+    "collectionName": "keshavarzi",
+    "variables": {
+      "pvAddress": "http://10.51.3.20:8080/api/loan-status",
+      "gwPort": "18101",
+      "gwPath": "/esb/keshavarzi/loan-status/v1"
+    }
+  },
+  "document": "سلام وقت بخیر\nما در بانک کشاورزی یک سرویس REST برای استعلام وضعیت وام داریم و می‌خواهیم سازمان‌های دیگر از طریق بیتا به آن دسترسی داشته باشند. کار خاصی روی پیام‌ها لازم نیست؛ فقط عبور بدهید.\nسرور ما روی http://10.51.3.20:8080 بالاست و خود سرویس زیر مسیر /api/loan-status قرار دارد.\nاسم فنی را loan-status بگذارید، نسخهٔ اول (v1)، داخل مجموعهٔ keshavarzi.\nروی گذرگاه، درگاه ۱۸۱۰۱ را برایش کنار گذاشته‌ایم و مصرف‌کننده‌ها باید آن را زیر /esb/keshavarzi/loan-status/v1 ببینند.\nممنون — تیم زیرساخت"
+}

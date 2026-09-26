@@ -1,0 +1,22 @@
+{
+  "id": "f09",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "soap-ws-security",
+    "serviceName": "sheba-verify",
+    "serviceVersion": "v1",
+    "collectionName": "cbi",
+    "variables": {
+      "pvAddress": "http://10.59.3.14:8080/ws/sheba-verify",
+      "pvWsdlUri": "http://10.59.3.14:8080/ws/sheba-verify?wsdl",
+      "gwPort": "18109",
+      "gwPath": "/esb/cbi/sheba-verify/v1",
+      "securityPolicy": "Timestamp+Signature",
+      "signaturePropsFile": "cbi-sign.properties",
+      "truststorePropsFile": "cbi-trust.properties"
+    }
+  },
+  "document": "بانک مرکزی — درخواست راه‌اندازی سرویس تطبیق شبا\nسرویس ما SOAP است و در http://10.59.3.14:8080/ws/sheba-verify (WSDL: همان نشانی با ?wsdl) پاسخ می‌دهد. طبق دستورالعمل امنیتی، همهٔ پیام‌ها باید امضای دیجیتال WS-Security و مهر زمانی داشته باشند، ولی نیازی نیست محتوای پیام رمز شود.\nبرای امضا از فایل تنظیمات cbi-sign.properties و برای مخزن اعتماد از cbi-trust.properties استفاده کنید.\nنام فنی sheba-verify، نسخهٔ v1، مجموعهٔ cbi؛ درگاه ۱۸۱۰۹ و مسیر /esb/cbi/sheba-verify/v1."
+}

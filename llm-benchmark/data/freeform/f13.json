@@ -1,0 +1,21 @@
+{
+  "id": "f13",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "soap-backend-basic-auth",
+    "serviceName": "insurance-claim",
+    "serviceVersion": "v1",
+    "collectionName": "bimeh-asia",
+    "variables": {
+      "pvAddress": "http://10.63.4.9:8080/ws/claims",
+      "pvWsdlUri": "http://10.63.4.9:8080/ws/claims?wsdl",
+      "gwPort": "18113",
+      "gwPath": "/esb/bimeh-asia/insurance-claim/v1",
+      "backendUsername": "gw_bitta",
+      "backendPassword": "Tq!8812"
+    }
+  },
+  "document": "بیمهٔ آسیا\nوب‌سرویس SOAP ثبت خسارت ما (http://10.63.4.9:8080/ws/claims، WSDL با ?wsdl) پشت احراز هویت Basic است. سازمان‌های مصرف‌کننده این اطلاعات را ندارند؛ گذرگاه خودش باید با حساب gw_bitta و گذرواژهٔ Tq!8812 به ما وصل شود.\nنام فنی insurance-claim، نسخهٔ v1، مجموعهٔ bimeh-asia؛ درگاه ۱۸۱۱۳ و مسیر /esb/bimeh-asia/insurance-claim/v1."
+}

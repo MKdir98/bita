@@ -1,0 +1,22 @@
+{
+  "id": "f10",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "soap-ws-security",
+    "serviceName": "medical-record",
+    "serviceVersion": "v1",
+    "collectionName": "moh",
+    "variables": {
+      "pvAddress": "http://10.60.8.2:8443/ws/medical-record",
+      "pvWsdlUri": "http://10.60.8.2:8443/ws/medical-record?wsdl",
+      "gwPort": "18110",
+      "gwPath": "/esb/moh/medical-record/v1",
+      "securityPolicy": "Timestamp+Signature+Encryption",
+      "signaturePropsFile": "moh-signature.properties",
+      "truststorePropsFile": "moh-truststore.properties"
+    }
+  },
+  "document": "وزارت بهداشت\nپرونده‌های پزشکی داده‌های حساس‌اند؛ بنابراین سرویس SOAP «پروندهٔ پزشکی» باید با استاندارد WS-Security 1.1 کار کند: امضا، مهر زمانی و علاوه بر این‌ها رمزنگاری بدنهٔ پیام.\nendpoint: http://10.60.8.2:8443/ws/medical-record — WSDL در همان نشانی با پسوند ?wsdl.\nفایل‌های properties: امضا moh-signature.properties، truststore moh-truststore.properties.\nدر بیتا: medical-record / v1 / مجموعهٔ moh، روی پورت 18110 با مسیر /esb/moh/medical-record/v1."
+}

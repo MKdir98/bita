@@ -1,0 +1,18 @@
+{
+  "id": "f03",
+  "level": "L6",
+  "expectedBehavior": "complete",
+  "expected": {
+    "templateId": 0,
+    "templateName": "rest-proxy",
+    "serviceName": "tariff-query",
+    "serviceVersion": "v2",
+    "collectionName": "tavanir",
+    "variables": {
+      "pvAddress": "http://10.53.2.8:8081/api/v3/tariffs",
+      "gwPort": "18103",
+      "gwPath": "/esb/tavanir/tariff-query/v2"
+    }
+  },
+  "document": "با سلام،\nبرای سرویس «استعلام تعرفهٔ برق» شرکت توانیر درخواست داریم آن را روی بیتا منتشر کنید. توجه کنید که نشانی قدیمی ما http://10.9.9.9:8080/old دیگر استفاده نمی‌شود و نباید به کار برود؛ نشانی فعلی و درست http://10.53.2.8:8081/api/v3/tariffs است. سرویس REST است و همان‌طور که هست باید عبور کند.\nاین سرویس نسخهٔ دوم (v2) از tariff-query است و در مجموعهٔ tavanir قرار می‌گیرد. پورت گذرگاه ۱۸۱۰۳ و مسیر انتشار /esb/tavanir/tariff-query/v2 باشد. سرور تست ما هم 10.99.1.1 است که ربطی به این درخواست ندارد."
+}

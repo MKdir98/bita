@@ -21,7 +21,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * runs on the ESB and serves a real request; and how long does that take end to end?
  *
  * <p>Cases: the 35 complete ones from llm-benchmark (20 clean L1, 15 noisy L2: Persian digits,
- * shuffled order, decoy addresses). Every proposal is confirmed as proposed — this measures the
+ * shuffled order, decoy addresses), plus 15 hand-written free-form documents (L6: varied wording,
+ * no fixed field labels, values split across sentences, decoys). The generated documents are
+ * regular enough for a rule-based parser (llm-benchmark/src/baseline.ts) to solve all of them;
+ * L6 is where a fixed-rule parser fails, so it is reported separately. Every proposal is confirmed as proposed — this measures the
  * model's answer, not a reviewer's correction. A case passes only if the chosen template, every
  * variable, and the live call through the gateway are all right.
  */
@@ -29,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ServiceDefinitionBenchmarkTest extends BenchmarkBase {
 
     static List<BenchmarkCase> cases() throws Exception {
-        return BenchmarkCase.load("L1", "L2");
+        return BenchmarkCase.load("L1", "L2", "L6");
     }
 
     @ParameterizedTest(name = "{0}")
