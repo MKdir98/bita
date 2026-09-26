@@ -157,6 +157,13 @@ public abstract class BenchmarkBase extends SystemTestBase {
     // ------------------------------------------------------------------ catalog
 
     /** The six templates the model chooses from, with the benchmark's own names and descriptions. */
+    /** No templates at all: the ablation where the model has to write every service's script itself. */
+    protected void emptyCatalog() {
+        resetCatalog();
+        jdbc.update("delete from groovy_template");
+        catalogReset = true;
+    }
+
     /** JUnit makes one instance per test, so this is "already reset in this test". */
     private boolean catalogReset;
 

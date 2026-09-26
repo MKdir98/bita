@@ -60,7 +60,7 @@ public class SyncService {
     private static final long DRAIN_TIMEOUT_MS = 10_000;
 
     private record LoadedScript(String script, Map<String, Object> variableValues,
-                                String deploymentId, ScriptVerticle verticle) {
+                                String deploymentId, ScriptVerticle verticle, boolean sandboxed) {
         Router router() {
             return verticle.gatewayRouter() == null || verticle.gatewayRouter().getRoutes().isEmpty()
                     ? null : verticle.gatewayRouter();
@@ -141,6 +141,7 @@ public class SyncService {
     private Future<Void> apply(EsmApiClient.ServiceConfigPayload payload) {
         String script = payload.getAssembledScript();
         Map<String, Object> vars = payload.getVariableValues();
+        boolean sandboxed = payload.isSandboxed();
         List<String> certs = payload.getAuthorizedClientCertPems() == null ? List.of() : payload.getAuthorizedClientCertPems();
         LoadedScript current = active;
 
@@ -152,16 +153,16 @@ public class SyncService {
         // a changed set of granted consumers also restarts the script: a WS-Security script builds
         // its trust store when it starts, so a revoked certificate would otherwise stay trusted
         if (current != null && current.script().equals(script) && Objects.equals(current.variableValues(), vars)
-                && appliedCerts.equals(certs)) {
+                && current.sandboxed() == sandboxed && appliedCerts.equals(certs)) {
             return Future.succeededFuture();
         }
 
         // compile first: a script that does not even parse never touches the running routes
-        return compile(script).compose(scriptClass ->
-                deploy(scriptClass, script, vars)
+        return compile(script, sandboxed).compose(scriptClass ->
+                deploy(scriptClass, script, vars, sandboxed)
                         .compose(next -> swapIn(current, next))
                         .recover(err -> current != null && isResourceConflict(err)
-                                ? replaceStopFirst(current, scriptClass, script, vars, err)
+                                ? replaceStopFirst(current, scriptClass, script, vars, sandboxed, err)
                                 : Future.failedFuture(err)))
                 .onSuccess(v -> appliedCerts = List.copyOf(certs));
     }
@@ -172,15 +173,16 @@ public class SyncService {
      * if that still fails, bring the old one back.
      */
     private Future<Void> replaceStopFirst(LoadedScript current, Class<? extends Script> scriptClass,
-                                          String script, Map<String, Object> vars, Throwable firstError) {
+                                          String script, Map<String, Object> vars, boolean sandboxed,
+                                          Throwable firstError) {
         log.info("New script could not start alongside the running one ({}); replacing stop-first",
                 firstError.getMessage());
         active = null;
         return vertx.undeploy(current.deploymentId())
-                .compose(v -> deploy(scriptClass, script, vars))
+                .compose(v -> deploy(scriptClass, script, vars, sandboxed))
                 .compose(next -> swapIn(null, next))
-                .recover(err -> compile(current.script())
-                        .compose(cls -> deploy(cls, current.script(), current.variableValues()))
+                .recover(err -> compile(current.script(), current.sandboxed())
+                        .compose(cls -> deploy(cls, current.script(), current.variableValues(), current.sandboxed()))
                         .compose(restored -> swapIn(null, restored))
                         .transform(restoreResult -> {
                             if (restoreResult.failed()) {
@@ -274,15 +276,18 @@ public class SyncService {
         return Integer.parseInt(String.valueOf(port));
     }
 
-    private Future<Class<? extends Script>> compile(String script) {
-        return vertx.executeBlocking(() ->
-                new GroovyShell(Thread.currentThread().getContextClassLoader()).parse(script).getClass());
+    /** {@code sandboxed}: a script the model wrote compiles with {@link ScriptSandbox}'s restrictions. */
+    private Future<Class<? extends Script>> compile(String script, boolean sandboxed) {
+        return vertx.executeBlocking(() -> (sandboxed
+                ? new GroovyShell(Thread.currentThread().getContextClassLoader(), ScriptSandbox.configuration())
+                : new GroovyShell(Thread.currentThread().getContextClassLoader())).parse(script).getClass());
     }
 
-    private Future<LoadedScript> deploy(Class<? extends Script> scriptClass, String script, Map<String, Object> vars) {
+    private Future<LoadedScript> deploy(Class<? extends Script> scriptClass, String script, Map<String, Object> vars,
+                                        boolean sandboxed) {
         ScriptVerticle verticle = new ScriptVerticle(scriptClass, vars, accessService);
         return vertx.deployVerticle(verticle)
-                .map(id -> new LoadedScript(script, vars, id, verticle));
+                .map(id -> new LoadedScript(script, vars, id, verticle, sandboxed));
     }
 
     private static boolean isResourceConflict(Throwable err) {

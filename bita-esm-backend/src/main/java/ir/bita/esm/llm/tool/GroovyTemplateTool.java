@@ -158,6 +158,7 @@ public class GroovyTemplateTool implements LlmTool {
                 .description(description)
                 .scriptText(script)
                 .variables(variables)
+                .modelAuthored(true)
                 .build());
         return Map.of(
                 "success", true,

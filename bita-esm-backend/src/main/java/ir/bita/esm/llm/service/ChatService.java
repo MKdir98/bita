@@ -144,6 +144,9 @@ public class ChatService {
             - چند فراخوانی هم‌زمان: io.vertx.core.CompositeFuture.all(f1, f2) و در نتیجه cf.resultAt(0)، cf.resultAt(1)
             - JSON: io.vertx.core.json.JsonObject یا groovy.json.JsonSlurper / JsonOutput؛ XML: groovy.xml.MarkupBuilder
               با StringWriter (مقدارها را escape می‌کند)
+            - اسکریپت قالب تازه در محیط محدود گذرگاه کامپایل می‌شود: اجرای فرایند، دسترسی به فایل، reflection،
+              بارگذاری کلاس، evaluate و کلاس System ممنوع‌اند؛ برای زمان از java.time.Instant.now().toEpochMilli()
+              یا تایمرهای vertx استفاده کن
             - هر Future را با .onSuccess { } و .onFailure { err -> ctx.response().setStatusCode(502).end(...) } ببند
               تا هیچ درخواستی بی‌پاسخ نماند
             قالب پیش از ثبت روی یک گذرگاه آزمایشی اجرا می‌شود (کامپایل، راه‌اندازی و یک فراخوانی بدون کلید و با کلید)؛

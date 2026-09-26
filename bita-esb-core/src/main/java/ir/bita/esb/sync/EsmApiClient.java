@@ -137,6 +137,8 @@ public class EsmApiClient {
         /** Runtime variable values injected as Groovy bindings. */
         private java.util.Map<String, Object> variableValues;
         private java.util.List<String> authorizedClientCertPems;
+        /** The script comes from a template the model wrote: compile it with ScriptSandbox. */
+        private boolean sandboxed;
     }
 
     /** Mirrors ESM's FullSyncDataDto — keep field names in sync with the ESM response JSON. */

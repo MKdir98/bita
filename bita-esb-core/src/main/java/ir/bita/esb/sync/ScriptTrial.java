@@ -31,6 +31,9 @@ import java.util.concurrent.atomic.AtomicReference;
  * check fails. Nothing of the trial outlives it: the script, the stand-in provider and the
  * listener are all closed afterwards.
  *
+ * <p>The script compiles with {@link ScriptSandbox}'s restrictions, as it will on every gateway
+ * that later runs it.
+ *
  * <p>A variable value may contain {@value #PROVIDER}; it is replaced with the stand-in provider's
  * address, so the caller need not know where that runs.
  */
@@ -62,7 +65,8 @@ public final class ScriptTrial {
                     String origin = "http://127.0.0.1:" + pv.actualPort();
                     variables.forEach((k, v) -> vars.put(k, String.valueOf(v).replace(PROVIDER, origin)));
                     return vertx.<Class<? extends Script>>executeBlocking(() ->
-                                    new GroovyShell(Thread.currentThread().getContextClassLoader()).parse(script).getClass())
+                                    new GroovyShell(Thread.currentThread().getContextClassLoader(), ScriptSandbox.configuration())
+                                            .parse(script).getClass())
                             .transform(c -> c.succeeded() ? Future.succeededFuture(c.result())
                                     : Future.failedFuture(new Stage("compile", c.cause())))
                             .compose(cls -> {

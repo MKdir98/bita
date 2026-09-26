@@ -27,4 +27,6 @@ public class ServiceConfigDto {
 
     /** PEM-encoded X.509 certs of all currently-authorised clients. */
     private List<String> authorizedClientCertPems;
+    /** The template was written by the model: the ESB compiles the script in its sandbox. */
+    private boolean sandboxed;
 }

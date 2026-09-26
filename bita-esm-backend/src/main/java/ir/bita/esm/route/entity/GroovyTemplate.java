@@ -32,6 +32,14 @@ public class GroovyTemplate extends SoftDeletableEntity {
     @Column(name = "script_text", columnDefinition = "TEXT", nullable = false)
     private String scriptText;
 
+    /**
+     * Added by the model through groovy_template rather than written by people: every gateway
+     * that runs a service built from it compiles the script in the ESB's sandbox.
+     */
+    @Column(name = "model_authored", nullable = false)
+    @Builder.Default
+    private boolean modelAuthored = false;
+
     /** Auto-scanned variable declarations from scriptText. */
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "variables", columnDefinition = "jsonb")

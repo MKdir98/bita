@@ -124,6 +124,8 @@ public class SyncDataService {
                 .assembledScript(assembledScript)
                 .variableValues(variableValues)
                 .authorizedClientCertPems(clientCertPems)
+                .sandboxed(groovyConfig != null && groovyConfig.getGroovyTemplate() != null
+                        && groovyConfig.getGroovyTemplate().isModelAuthored())
                 .build();
     }
 
